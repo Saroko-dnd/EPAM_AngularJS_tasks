@@ -1,0 +1,11 @@
+{
+    "parser": "babel-eslint",
+    "rules": {
+        "no-unused-vars": ["error", { "varsIgnorePattern": "ESLintIgnore" }],
+        "max-len": [1, 80, 2, { "ignoreComments": true }],
+        "linebreak-style": ["error", "unix"],
+        "indent": ["error", 4]
+    },
+    "extends": ["airbnb-base"],
+    "plugins": ["jsx-a11y", "import"]
+}

@@ -1,0 +1,9 @@
+@import "mixins.scss";
+
+.small-blue-square {
+  @include square(150px, rgb(0, 0, 255));
+}
+
+.big-red-square {
+  @include square(300px, rgb(255, 0, 0));
+}

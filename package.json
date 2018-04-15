@@ -1,0 +1,38 @@
+{
+  "name": "task_1",
+  "version": "1.0.0",
+  "description": "First training task in AngularJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development ./src/index.js --output ./dist/main.js",
+    "build": "webpack --mode production ./src/index.js --output ./dist/main.js"
+  },
+  "keywords": [],
+  "author": "Ihar Saroka (Junior Software Engineer in EPAM)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.8.3",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "prettier-eslint": "^8.8.1",
+    "sass-loader": "^7.0.1",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-ui-bootstrap": "^2.5.6"
+  }
+}

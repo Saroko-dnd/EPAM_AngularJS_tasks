@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJS application</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" async></script>
+</head>
+
+<body>
+    <div ng-app="testAngularApplication" ng-controller="testController" ng-init="firstName='Igor'; secondName='Saroko'; person={firstName:'John',lastName:'Doe'}; points=[1,15,19,2,40]">
+        <div>
+            <p>gggg</p>
+        </div>
+        <p>Model and bind 1 example: </p>
+        <p>Text input:
+            <input type="text" ng-model="name">
+        </p>
+        <p ng-bind="name"></p>
+
+        <p>Model and bind 2 example:</p>
+        <p>Text input:
+            <input type="text" ng-model="name_2">
+        </p>
+        <p ng-bind="name_2"></p>
+
+        <p>Model and bind 3 example:</p>
+        <p>Text input:
+            <input type="text" ng-model="name_3">
+        </p>
+        <p ng-bind="name_3"></p>
+
+        <p>First name and second name from ng-init attribute (using ng-bind):
+            <span ng-bind="firstName"></span>
+            <span ng-bind="secondName"></span>
+        </p>
+
+        <p>
+            <b>Angular expression examples:</b>
+        </p>
+        <p>Usual way: {{ 5 + 5 }}</p>
+        <p>Model and bind using expression:</p>
+        <p>Text input:
+            <input type="text" ng-model="forExpression">
+        </p>
+        <p>{{forExpression}}</p>
+
+        <p>Message created from variables with help of application controller (in js):
+            <b>{{var_1 + " " + var_2 + " " + var_3}}</b>
+        </p>
+        <p>Message created from variables with help of application controller (using ng-bind) (in js):
+            <b ng-bind="var_1 + ' ' + var_2 + ' ' + var_3"></b>
+        </p>
+
+        <p>First name and last name from object in ng-init:
+            <b>{{person.firstName + ' ' + person.lastName}}</b>
+        </p>
+        <p>Number from array in ng-init:
+            <b>{{points[2]}}</b>
+        </p>
+
+    </div>
+    <div class="small-blue-square"></div>
+    <div class="big-red-square"></div>
+</body>
+
+</html>
