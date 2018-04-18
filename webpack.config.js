@@ -2,8 +2,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // We need UglifyJs because optimization.minimizer overrides the defaults provided by webpack 4
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    devServer: {
+        contentBase: './dist',
+    },
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
@@ -17,9 +21,19 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: 'html-loader',
+                        options: { minimize: true },
+                    },
+                ],
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: [
+                    { loader: 'angular1-templateurl-loader' },
                     { loader: 'babel-loader' },
                     {
                         loader: 'eslint-loader',
@@ -50,6 +64,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css',
+        }),
+        new HtmlWebPackPlugin({
+            template: './src/index.html',
+            filename: './index.html',
         }),
     ],
 };
