@@ -1,4 +1,6 @@
-@import "mixins.scss";
+@import "mixins";
+@import "variables";
+@import "fonts";
 
 .small-blue-square {
   @include square(150px, rgb(0, 0, 255));
@@ -6,4 +8,18 @@
 
 .big-red-square {
   @include square(300px, rgb(255, 0, 0));
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  background: url("../img/space.jpg");
+}
+
+h1 {
+  font-family: $font-headers;
+  color: $color-headers;
+  font-size: 10rem;
 }

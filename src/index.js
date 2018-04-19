@@ -1,5 +1,4 @@
 import styleESLintIgnore from './assets/scss/index.scss';
-import angularAppESLintIgnore from './app/app.module';
-import angularRoutesESLintIgnore from './app/app.routes';
+import angularPagesESLintIgnore from './app/pages';
 
 // import angularUiBootstrapESLintIgnore from 'angular-ui-bootstrap';
