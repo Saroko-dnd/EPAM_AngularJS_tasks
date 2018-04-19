@@ -1,4 +1,4 @@
 import styleESLintIgnore from './assets/scss/index.scss';
-import angularPagesESLintIgnore from './app/pages';
+import angularAppESLintIgnore from './app/app';
 
 // import angularUiBootstrapESLintIgnore from 'angular-ui-bootstrap';
