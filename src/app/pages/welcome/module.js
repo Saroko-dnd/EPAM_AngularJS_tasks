@@ -1,8 +1,12 @@
 import angular from 'angular';
-import 'angular-route';
+import '@uirouter/angularjs';
 
-angular.module('testAngularApplication', ['ngRoute']).config(($routeProvider) => {
-    $routeProvider.when('/', {
-        templateUrl: './view.html',
+angular
+    .module('testAngularApplication', ['ui.router'])
+    .config(($stateProvider) => {
+        $stateProvider.state({
+            name: 'welcome',
+            url: '',
+            templateUrl: './view.html',
+        });
     });
-});
