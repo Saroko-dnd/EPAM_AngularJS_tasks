@@ -11,7 +11,9 @@
     <script src="main.js" async></script>
 </head>
 
-<body ng-app="testAngularApplication">
+<body ng-app="testAngularApplication" ng-strict-di="true">
+    <a ui-sref="signin" ui-sref-active="active">signin</a>
+    <a ui-sref="home" ui-sref-active="active">home</a>
     <ui-view></ui-view>
 </body>
 
