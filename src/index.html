@@ -12,8 +12,12 @@
 </head>
 
 <body ng-app="testAngularApplication" ng-strict-di="true">
-    <a ui-sref="signin" ui-sref-active="active">signin</a>
-    <a ui-sref="home" ui-sref-active="active">home</a>
+    <h1>Creative app name</h1>
+    <nav>
+        <a ui-sref="home" ui-sref-active="active">home</a>
+        <a ui-sref="signin" ui-sref-active="active">signin</a>
+        <a ui-sref="secret" ui-sref-active="active">secret</a>
+    </nav>
     <ui-view></ui-view>
 </body>
 

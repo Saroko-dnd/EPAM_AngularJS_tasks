@@ -1,4 +1,10 @@
 <div>
-    <h1>SIGNIN</h1>
-    <a href="https://github.com/login/oauth/authorize?client_id={{client_id}}">try OAuth</a>
+    <h1>SIGN IN</h1>
+    <input ng-model="username" type="text" placeholder="enter your github username">
+    <input ng-model="token" type="text" placeholder="enter your personal API token">
+    <input ng-click="trySignIn()" type="button" value="SIGN IN">
+    <p ng-bind="message"></p>
+    <!-- <a  href="https://github.com/login/oauth/authorize?client_id={{client_id}}">try OAuth</a> -->
 </div>
+
+<user id="412412421"></user>

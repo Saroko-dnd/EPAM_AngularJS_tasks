@@ -21,6 +21,20 @@ a {
   font-size: 5rem;
 }
 
+p {
+  color: $color-paragraphs;
+  font-size: 3rem;
+}
+
+input {
+  font-size: 3rem;
+  color: $color-inputs;
+}
+
+nav a {
+  margin: 0 30px;
+}
+
 .active {
   font-size: 10rem;
 }

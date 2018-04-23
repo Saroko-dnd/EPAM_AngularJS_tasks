@@ -4,7 +4,7 @@ import '@uirouter/angularjs';
 angular.module('page.home', ['ui.router']).config(($stateProvider) => {
     $stateProvider.state({
         name: 'home',
-        url: '/?code',
+        url: '/',
         templateUrl: './view.html',
     });
 });
