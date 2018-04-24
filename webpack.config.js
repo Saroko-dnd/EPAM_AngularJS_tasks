@@ -96,4 +96,5 @@ module.exports = {
             filename: './index.html',
         }),
     ],
+    watch: false,
 };

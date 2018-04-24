@@ -1,11 +1,11 @@
 import angular from 'angular';
 import '@uirouter/angularjs';
-import controllers from './controllers/controllers';
+import controllers from './controllers';
 
 angular.module('page.secret', ['ui.router']).config(($stateProvider) => {
     $stateProvider.state({
-        name: 'secret',
-        url: '/secret',
+        name: 'repositoriesSearch',
+        url: '/repositoriesSearch',
         templateUrl: './view.html',
         params: {
             avatarUrl: null,

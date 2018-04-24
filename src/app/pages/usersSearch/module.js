@@ -1,18 +1,18 @@
 import angular from 'angular';
 import '@uirouter/angularjs';
 import controllers from './controllers';
+import services from './services';
 
 angular
-    .module('page.signin', ['ui.router'])
+    .module('page.userSearch', ['ui.router'])
+    .service('dataService', services.database)
     .config(($stateProvider, $locationProvider) => {
         $stateProvider.state({
-            name: 'signin',
-            url: '/signin',
+            name: 'usersSearch',
+            url: '/usersSearch',
             templateUrl: './view.html',
-            controller: controllers.authorization,
+            controller: controllers.userSearch,
         });
 
         $locationProvider.html5Mode(true);
     });
-
-// 15a6c26b4814391d67aa4c7dba10d8d6cb3c111c

@@ -1,9 +1,16 @@
+@import "reset";
 @import "mixins";
 @import "variables";
 @import "fonts";
 
+@import "./userSearch/index.scss";
+
 html {
   font-size: 10px;
+}
+
+* {
+  text-align: center;
 }
 
 body {
@@ -12,11 +19,40 @@ body {
 
 h1 {
   font-family: $font-headers;
-  color: $color-headers;
+  color: $color-main-headers;
   font-size: 10rem;
 }
 
+main {
+  h1,
+  h2,
+  h3,
+  h4,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-headers;
+    color: $color-page-subheaders;
+    font-size: 5rem;
+  }
+
+  section {
+    h1,
+    h2,
+    h3,
+    h4,
+    h4,
+    h5,
+    h6 {
+      font-family: $font-headers;
+      color: $color-page-mini-headers;
+      font-size: 5rem;
+    }
+  }
+}
+
 a {
+  font-family: $font-links;
   color: $color-links;
   font-size: 5rem;
 }
@@ -37,6 +73,10 @@ nav a {
 
 .active {
   font-size: 10rem;
+}
+
+.text {
+  font-family: $font-usual-text;
 }
 
 .small-blue-square {

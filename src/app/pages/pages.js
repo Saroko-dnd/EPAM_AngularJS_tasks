@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 import './home/module';
-import './secret/module';
-import './signin/module';
+import './repositoriesSearch/module';
+import './usersSearch/module';
 
-angular.module('pages', ['page.signin', 'page.secret', 'page.home']);
+angular.module('pages', ['page.userSearch', 'page.secret', 'page.home']);
