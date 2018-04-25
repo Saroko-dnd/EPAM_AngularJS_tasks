@@ -5,10 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev":
-            "webpack --mode development ./src/index.js --output ./dist/main.js",
-        "build":
-            "webpack --mode production ./src/index.js --output ./dist/main.js",
+        "dev": "webpack --mode development ./src/index.js --output ./dist/main.js",
+        "build": "webpack --mode production ./src/index.js --output ./dist/main.js",
         "watch": "webpack --watch",
         "start": "webpack-dev-server --open Chrome --mode development",
         "startOpt": "webpack-dev-server --open Chrome --mode production"
@@ -45,6 +43,7 @@
     "dependencies": {
         "@uirouter/angularjs": "^1.0.15",
         "angular": "^1.6.9",
-        "angular-ui-bootstrap": "^2.5.6"
+        "angular-ui-bootstrap": "^2.5.6",
+        "babel-polyfill": "^6.26.0"
     }
 }
