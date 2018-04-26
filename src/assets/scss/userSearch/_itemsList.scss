@@ -1,5 +1,8 @@
-.users-list {
-  li {
+.items-list {
+  margin: 0 auto;
+
+  tr {
+    border: 10px solid transparent;
     * {
       vertical-align: middle;
     }

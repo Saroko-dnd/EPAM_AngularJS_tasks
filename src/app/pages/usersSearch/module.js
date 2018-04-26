@@ -10,6 +10,7 @@ angular
         $stateProvider.state({
             name: 'usersSearch',
             url: '/usersSearch',
+            cache: true,
             templateUrl: './view.html',
             controller: controllers.userSearch,
         });

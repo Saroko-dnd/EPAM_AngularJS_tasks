@@ -1,6 +1,11 @@
 import angular from 'angular';
-import './globalProviders';
+import '@uirouter/angularjs';
 
+import './globalProviders';
 import './pages/pages';
 
-angular.module('testAngularApplication', ['pages', 'globalVariables']);
+angular.module('testAngularApplication', [
+    'pages',
+    'globalVariables',
+    'ui.router',
+]);

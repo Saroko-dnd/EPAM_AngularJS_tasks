@@ -1,16 +1,29 @@
 /* @ngInject */
-const userSearch = ($scope, dataService) => {
-    $scope.avatarUrl = null;
-    $scope.login = null;
-    $scope.username = null;
-    $scope.errorMessage = null;
-    $scope.followers = null;
-    $scope.followersCount = null;
-    $scope.followingCount = null;
-    $scope.followingList = null;
-    $scope.repositoriesCount = null;
-    $scope.starredReposCount = null;
-    $scope.userFound = false;
+const userSearch = ($scope, dataService, $cacheFactory) => {
+    const cache =
+        $cacheFactory.get('userDataCache') || $cacheFactory('userDataCache');
+
+    $scope.avatarUrl = cache.get('avatarUrl');
+    console.log($scope.avatarUrl);
+    $scope.login = cache.get('login');
+    $scope.username = cache.get('username');
+    $scope.errorMessage = cache.get('errorMessage');
+
+    $scope.followers = cache.get('followers');
+    $scope.followersCount = cache.get('followersCount');
+
+    $scope.followingCount = cache.get('followingCount');
+    $scope.followingList = cache.get('followingList');
+
+    $scope.repositoriesCount = cache.get('repositoriesCount');
+    $scope.starredReposCount = cache.get('starredReposCount');
+    $scope.repositories = cache.get('repositories');
+
+    if ($scope.avatarUrl) {
+        $scope.userFound = true;
+    } else {
+        $scope.userFound = false;
+    }
 
     $scope.isUserFound = () => !$scope.userFound;
 
@@ -23,22 +36,38 @@ const userSearch = ($scope, dataService) => {
                 $scope.followersCount = userData.followers;
                 $scope.followingCount = userData.following;
                 $scope.repositoriesCount = userData.public_repos;
+
+                cache.put('username', $scope.username);
+                cache.put('avatarUrl', $scope.avatarUrl);
+                cache.put('followersCount', $scope.followersCount);
+                cache.put('followingCount', $scope.followingCount);
+                cache.put('repositoriesCount', $scope.repositoriesCount);
                 $scope.userFound = true;
                 // console.log(userData);
             })
             .then(() => dataService.getUserFollowers($scope.login, 1))
             .then((followers) => {
                 $scope.followers = followers;
+
+                cache.put('followers', $scope.followers);
             })
             .then(() => dataService.getUserFollowingList($scope.login, 1))
             .then((users) => {
                 $scope.followingList = users;
+
+                cache.put('followingList', $scope.followingList);
             })
             .then(() =>
-                dataService.getStarredRepositories($scope.login, 1, 10000))
-            .then((repositories) => {
-                $scope.starredReposCount = repositories.length;
+                dataService.getNumberOfStarredRepositories($scope.login))
+            .then((starredReposCount) => {
+                $scope.starredReposCount = starredReposCount;
+                cache.put('starredReposCount', $scope.starredReposCount);
                 // console.log(repositories);
+            })
+            .then(() => dataService.getListOfRepositories($scope.login))
+            .then((repositoriesInfo) => {
+                $scope.repositories = repositoriesInfo;
+                cache.put('repositories', $scope.repositories);
             })
             .then(() => {
                 $scope.errorMessage = '';

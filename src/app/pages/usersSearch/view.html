@@ -12,31 +12,56 @@
             <h3>user followers</h3>
             <p class="important-info">Count: {{followersCount}}</p>
             <h4>List of followers (only first 30)</h4>
-            <ul class="users-list">
-                <li ng-repeat="follower in followers">
-                    <p class="text" ng-bind="follower.login"></p>
-                    <img ng-src="{{follower.avatar_url}}">
-                    <a ng-href="{{follower.html_url}}">Profile link</a>
-                </li>
-            </ul>
+            <table class="items-list">
+                <tbody>
+                    <tr ng-repeat="follower in followers">
+                        <td>
+                            <p class="text" ng-bind="follower.login"></p>
+                        </td>
+                        <td>
+                            <img ng-src="{{follower.avatar_url}}">
+                        </td>
+                        <td>
+                            <a ng-href="{{follower.html_url}}">Profile link</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </article>
         <article class="user-info-container">
             <h3>user following</h3>
             <p class="important-info">Count: {{followingCount}}</p>
             <h4>Following list (only first 30)</h4>
-            <ul class="users-list">
-                <li ng-repeat="user in followingList">
-                    <p class="text" ng-bind="user.login"></p>
-                    <img ng-src="{{user.avatar_url}}">
-                    <a ng-href="{{user.html_url}}">Profile link</a>
-                </li>
-            </ul>
+            <table class="items-list">
+                <tbody>
+                    <tr ng-repeat="user in followingList">
+                        <td>
+                            <p class="text" ng-bind="user.login"></p>
+                        </td>
+                        <td>
+                            <img ng-src="{{user.avatar_url}}">
+                        </td>
+                        <td>
+                            <a ng-href="{{user.html_url}}">Profile link</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </article>
         <article class="user-info-container">
             <h3>repositories</h3>
             <p class="important-info">Count: {{repositoriesCount}}</p>
             <p class="important-info">Stars: {{starredReposCount}}</p>
             <h4>Repositories (only first 30)</h4>
+            <table class="items-list">
+                <tbody>
+                    <tr ng-repeat="repository in repositories">
+                        <td>
+                            <a ng-href="{{repository.html_url}}">{{repository.name}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </article>
     </section>
     <!-- <a  href="https://github.com/login/oauth/authorize?client_id={{client_id}}">try OAuth</a> -->

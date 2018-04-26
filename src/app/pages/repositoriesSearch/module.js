@@ -7,9 +7,9 @@ angular.module('page.secret', ['ui.router']).config(($stateProvider) => {
         name: 'repositoriesSearch',
         url: '/repositoriesSearch',
         templateUrl: './view.html',
+        controller: controllers.getInfoFromGithub,
         params: {
             avatarUrl: null,
         },
-        controller: controllers.getInfoFromGithub,
     });
 });
