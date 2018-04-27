@@ -1,5 +1,5 @@
 /* @ngInject */
-const userSearch = ($scope, dataService, userDataCache) => {
+const userSearch = ($q, $scope, dataService, userDataCache) => {
     init();
 
     $scope.getUserInfo = getUserInfo;
@@ -9,29 +9,23 @@ const userSearch = ($scope, dataService, userDataCache) => {
     }
 
     function getUserInfo() {
-        dataService
-            .loadUserData($scope.login)
-            .then((data) => {
-                $scope.userData = data;
-            })
-            .then(() => dataService.loadUserFollowers($scope.login, 1))
-            .then((followersList) => {
-                $scope.userData.followersList = followersList;
-            })
-            .then(() => dataService.loadUserFollowingList($scope.login, 1))
-            .then((followingList) => {
-                $scope.userData.followingList = followingList;
-            })
-            .then(() =>
-                dataService.loadNumberOfStarredRepositories($scope.login))
-            .then((starredReposCount) => {
-                $scope.userData.starredReposCount = starredReposCount;
-            })
-            .then(() => dataService.loadListOfRepositories($scope.login))
-            .then((repositoriesList) => {
-                $scope.userData.repositoriesList = repositoriesList;
-            })
-            .then(() => {
+        $q
+            .all([
+                dataService.loadUserData($scope.login),
+                dataService.loadUserFollowers($scope.login, 1),
+                dataService.loadUserFollowingList($scope.login, 1),
+                dataService.loadNumberOfStarredRepositories($scope.login),
+                dataService.loadListOfRepositories($scope.login),
+            ])
+            .then((dataArray) => {
+                [
+                    $scope.userData,
+                    $scope.userData.followersList,
+                    $scope.userData.followingList,
+                    $scope.userData.starredReposCount,
+                    $scope.userData.repositoriesList,
+                ] = dataArray;
+
                 $scope.errorMessage = '';
             })
             .catch((error) => {
