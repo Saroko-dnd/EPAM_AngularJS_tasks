@@ -1,10 +1,11 @@
 import angular from 'angular';
 import '@uirouter/angularjs';
+import './providers';
 import controllers from './controllers';
 import services from './services';
 
 angular
-    .module('page.userSearch', ['ui.router'])
+    .module('page.userSearch', ['ui.router', 'userSearchVariables'])
     .service('dataService', services.database)
     .config(($stateProvider, $locationProvider) => {
         $stateProvider.state({

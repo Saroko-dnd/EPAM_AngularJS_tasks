@@ -1,10 +1,9 @@
 /* @ngInject */
-const userSearch = ($scope, dataService, $cacheFactory) => {
+const userSearch = ($scope, dataService, $cacheFactory, userDataCache) => {
     const cache =
-        $cacheFactory.get('userDataCache') || $cacheFactory('userDataCache');
+        $cacheFactory.get(userDataCache) || $cacheFactory(userDataCache);
 
     $scope.avatarUrl = cache.get('avatarUrl');
-    console.log($scope.avatarUrl);
     $scope.login = cache.get('login');
     $scope.username = cache.get('username');
     $scope.errorMessage = cache.get('errorMessage');
@@ -43,7 +42,6 @@ const userSearch = ($scope, dataService, $cacheFactory) => {
                 cache.put('followingCount', $scope.followingCount);
                 cache.put('repositoriesCount', $scope.repositoriesCount);
                 $scope.userFound = true;
-                // console.log(userData);
             })
             .then(() => dataService.getUserFollowers($scope.login, 1))
             .then((followers) => {
@@ -62,7 +60,6 @@ const userSearch = ($scope, dataService, $cacheFactory) => {
             .then((starredReposCount) => {
                 $scope.starredReposCount = starredReposCount;
                 cache.put('starredReposCount', $scope.starredReposCount);
-                // console.log(repositories);
             })
             .then(() => dataService.getListOfRepositories($scope.login))
             .then((repositoriesInfo) => {

@@ -22,7 +22,7 @@
                             <img ng-src="{{follower.avatar_url}}">
                         </td>
                         <td>
-                            <a ng-href="{{follower.html_url}}">Profile link</a>
+                            <a ng-href="{{follower.html_url}}" target="_blank">Profile link</a>
                         </td>
                     </tr>
                 </tbody>
@@ -42,7 +42,7 @@
                             <img ng-src="{{user.avatar_url}}">
                         </td>
                         <td>
-                            <a ng-href="{{user.html_url}}">Profile link</a>
+                            <a ng-href="{{user.html_url}}" target="_blank">Profile link</a>
                         </td>
                     </tr>
                 </tbody>
@@ -57,7 +57,7 @@
                 <tbody>
                     <tr ng-repeat="repository in repositories">
                         <td>
-                            <a ng-href="{{repository.html_url}}">{{repository.name}}</a>
+                            <a ng-href="{{repository.html_url}}" target="_blank">{{repository.name}}</a>
                         </td>
                     </tr>
                 </tbody>
