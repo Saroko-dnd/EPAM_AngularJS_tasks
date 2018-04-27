@@ -5,7 +5,8 @@ import controllers from './controllers';
 import services from './services';
 
 angular
-    .module('page.userSearch', ['ui.router', 'userSearchVariables'])
+    .module('page.userSearch', ['userSearchVariables'])
+    .service('userDataCache', services.userDataCache)
     .service('dataService', services.database)
     .config(($stateProvider, $locationProvider) => {
         $stateProvider.state({

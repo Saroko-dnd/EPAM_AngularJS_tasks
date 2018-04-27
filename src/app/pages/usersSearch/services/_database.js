@@ -1,9 +1,10 @@
 class Database {
     /* @ngInject */
-    constructor($http, apiToken) {
+    constructor($http, apiToken, userDataCache) {
         this.$http = $http;
         this.apiToken = apiToken;
         this.cache = {};
+        this.userDataCache = userDataCache;
     }
 
     static get regexpLastPage() {
@@ -14,31 +15,36 @@ class Database {
         return 30;
     }
 
-    getUserData(login) {
+    loadUserData(login) {
         return this.$http.get(`https://api.github.com/users/${login}`).then(
-            response => response.data,
+            response => this.userDataCache.saveData('userData', response.data),
             () => {
                 throw new Error('User with such login not found!');
             },
         );
     }
 
-    getUserFollowers(login, page) {
+    loadUserFollowers(login, page) {
         return this.$http
             .get(`https://api.github.com/users/${login}/followers?page=${page}`)
             .then(
-                response => response.data,
+                response =>
+                    this.userDataCache.saveData('followersList', response.data),
                 () => [],
             );
     }
 
-    getUserFollowingList(login, page) {
+    loadUserFollowingList(login, page) {
         return this.$http
             .get(`https://api.github.com/users/${login}/following?page=${page}`)
-            .then(response => response.data, () => []);
+            .then(
+                response =>
+                    this.userDataCache.saveData('followingList', response.data),
+                () => [],
+            );
     }
 
-    getNumberOfStarredRepositories(login) {
+    loadNumberOfStarredRepositories(login) {
         let starredCount = 0;
         let lastPage = 0;
 
@@ -56,16 +62,34 @@ class Database {
                     return this.$http
                         .get(`https://api.github.com/users/${login}/starred?page=${lastPage}`)
                         .then(serverAnswer =>
-                            serverAnswer.data.length + starredCount);
+                            this.userDataCache.saveData(
+                                'starredReposCount',
+                                serverAnswer.data.length + starredCount,
+                            ));
                 }
-                return response.data.length;
+
+                return this.userDataCache.saveData(
+                    'starredReposCount',
+                    response.data.length,
+                );
             });
     }
 
-    getListOfRepositories(login) {
+    loadListOfRepositories(login) {
         return this.$http
             .get(`https://api.github.com/users/${login}/repos`)
-            .then(response => response.data, () => []);
+            .then(
+                response =>
+                    this.userDataCache.saveData(
+                        'repositoriesList',
+                        response.data,
+                    ),
+                () => [],
+            );
+    }
+
+    getLoadedData() {
+        return this.userDataCache.getData();
     }
 }
 

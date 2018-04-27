@@ -1,7 +1,13 @@
 import angular from 'angular';
+import '@uirouter/angularjs';
 
 import './home/module';
 import './repositoriesSearch/module';
 import './usersSearch/module';
 
-angular.module('pages', ['page.userSearch', 'page.secret', 'page.home']);
+angular.module('pages', [
+    'ui.router',
+    'page.userSearch',
+    'page.secret',
+    'page.home',
+]);

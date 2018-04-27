@@ -5,16 +5,16 @@
         <input ng-click="getUserInfo()" type="button" value="SEARCH">
         <p ng-bind="errorMessage" class="error-message"></p>
     </section>
-    <section ng-if="isUserFound()">
-        <h3>username: {{username}}</h3>
-        <img ng-src="{{avatarUrl}}">
+    <section ng-if="userData.login">
+        <h3>username: {{userData.name}}</h3>
+        <img ng-src="{{userData.avatar_url}}">
         <article class="user-info-container">
             <h3>user followers</h3>
-            <p class="important-info">Count: {{followersCount}}</p>
+            <p class="important-info">Count: {{userData.followers}}</p>
             <h4>List of followers (only first 30)</h4>
             <table class="items-list">
                 <tbody>
-                    <tr ng-repeat="follower in followers">
+                    <tr ng-repeat="follower in userData.followersList">
                         <td>
                             <p class="text" ng-bind="follower.login"></p>
                         </td>
@@ -30,11 +30,11 @@
         </article>
         <article class="user-info-container">
             <h3>user following</h3>
-            <p class="important-info">Count: {{followingCount}}</p>
+            <p class="important-info">Count: {{userData.following}}</p>
             <h4>Following list (only first 30)</h4>
             <table class="items-list">
                 <tbody>
-                    <tr ng-repeat="user in followingList">
+                    <tr ng-repeat="user in userData.followingList">
                         <td>
                             <p class="text" ng-bind="user.login"></p>
                         </td>
@@ -50,12 +50,12 @@
         </article>
         <article class="user-info-container">
             <h3>repositories</h3>
-            <p class="important-info">Count: {{repositoriesCount}}</p>
-            <p class="important-info">Stars: {{starredReposCount}}</p>
+            <p class="important-info">Count: {{userData.public_repos}}</p>
+            <p class="important-info">Stars: {{userData.starredReposCount}}</p>
             <h4>Repositories (only first 30)</h4>
             <table class="items-list">
                 <tbody>
-                    <tr ng-repeat="repository in repositories">
+                    <tr ng-repeat="repository in userData.repositoriesList">
                         <td>
                             <a ng-href="{{repository.html_url}}" target="_blank">{{repository.name}}</a>
                         </td>
