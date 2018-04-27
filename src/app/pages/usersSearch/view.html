@@ -5,7 +5,7 @@
         <input ng-click="getUserInfo()" type="button" value="SEARCH">
         <p ng-bind="errorMessage" class="error-message"></p>
     </section>
-    <section ng-class="{'hidden':isUserFound()}">
+    <section ng-if="isUserFound()">
         <h3>username: {{username}}</h3>
         <img ng-src="{{avatarUrl}}">
         <article class="user-info-container">

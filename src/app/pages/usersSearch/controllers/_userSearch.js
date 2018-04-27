@@ -24,7 +24,7 @@ const userSearch = ($scope, dataService, $cacheFactory, userDataCache) => {
         $scope.userFound = false;
     }
 
-    $scope.isUserFound = () => !$scope.userFound;
+    $scope.isUserFound = () => $scope.userFound;
 
     $scope.getUserInfo = () => {
         dataService
