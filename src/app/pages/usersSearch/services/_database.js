@@ -15,49 +15,26 @@ class Database {
     }
 
     getUserData(login) {
-        return this.$http
-            .get(`https://api.github.com/users/${login}`, {
-                headers: {
-                    Authorization: `token ${this.apiToken}`,
-                },
-            })
-            .then(
-                response => response.data,
-                () => {
-                    throw new Error('User with such login not found!');
-                },
-            );
+        return this.$http.get(`https://api.github.com/users/${login}`).then(
+            response => response.data,
+            () => {
+                throw new Error('User with such login not found!');
+            },
+        );
     }
 
     getUserFollowers(login, page) {
         return this.$http
-            .get(
-                `https://api.github.com/users/${login}/followers?page=${page}`,
-                {
-                    headers: {
-                        Authorization: `token ${this.apiToken}`,
-                    },
-                },
-            )
+            .get(`https://api.github.com/users/${login}/followers?page=${page}`)
             .then(
-                (response) => {
-                    console.log(response.headers('link') /* .match(/(?<=page=)\d+/g) */);
-                    return response.data;
-                },
+                response => response.data,
                 () => [],
             );
     }
 
     getUserFollowingList(login, page) {
         return this.$http
-            .get(
-                `https://api.github.com/users/${login}/following?page=${page}`,
-                {
-                    headers: {
-                        Authorization: `token ${this.apiToken}`,
-                    },
-                },
-            )
+            .get(`https://api.github.com/users/${login}/following?page=${page}`)
             .then(response => response.data, () => []);
     }
 
@@ -66,11 +43,7 @@ class Database {
         let lastPage = 0;
 
         return this.$http
-            .get(`https://api.github.com/users/${login}/starred`, {
-                headers: {
-                    Authorization: `token ${this.apiToken}`,
-                },
-            })
+            .get(`https://api.github.com/users/${login}/starred`)
             .then((response) => {
                 if (response.headers('link')) {
                     [lastPage] = response
@@ -81,14 +54,7 @@ class Database {
                     starredCount += Database.perPage * (lastPage - 1);
 
                     return this.$http
-                        .get(
-                            `https://api.github.com/users/${login}/starred?page=${lastPage}`,
-                            {
-                                headers: {
-                                    Authorization: `token ${this.apiToken}`,
-                                },
-                            },
-                        )
+                        .get(`https://api.github.com/users/${login}/starred?page=${lastPage}`)
                         .then(serverAnswer =>
                             serverAnswer.data.length + starredCount);
                 }
@@ -98,11 +64,7 @@ class Database {
 
     getListOfRepositories(login) {
         return this.$http
-            .get(`https://api.github.com/users/${login}/repos`, {
-                headers: {
-                    Authorization: `token ${this.apiToken}`,
-                },
-            })
+            .get(`https://api.github.com/users/${login}/repos`)
             .then(response => response.data, () => []);
     }
 }
