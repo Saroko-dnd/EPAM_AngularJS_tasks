@@ -9,7 +9,7 @@ const userSearch = ($state, $scope, userDataCache) => {
 
         if (userData) {
             $state.go('usersSearch.result', {
-                login: userDataCache.getData().login,
+                login: userData.login,
             });
         }
     }

@@ -1,0 +1,17 @@
+.uib-tab.nav-item {
+  .nav-link {
+    color: $color-tabs-text;
+    background-color: $color-tabs-background;
+    font-size: 5rem;
+    font-family: $font-tabs;
+    border: 5px solid $color-tabs-border;
+    text-decoration: none;
+  }
+
+  &.active {
+    .nav-link {
+      color: $color-active-tabs-text;
+      background-color: $color-active-tabs-background;
+    }
+  }
+}

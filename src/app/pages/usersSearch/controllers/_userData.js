@@ -1,9 +1,8 @@
 /* @ngInject */
 const userData = ($stateParams, $q, $scope, dataService, userDataCache) => {
-    init();
-
-    console.log($stateParams);
     $scope.getUserInfo = getUserInfo;
+
+    init();
 
     function init() {
         $scope.userData = userDataCache.getData();

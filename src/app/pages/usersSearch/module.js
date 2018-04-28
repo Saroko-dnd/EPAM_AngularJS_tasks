@@ -8,7 +8,7 @@ angular
     .module('page.userSearch', ['userSearchVariables'])
     .service('userDataCache', services.userDataCache)
     .service('dataService', services.database)
-    .config(($stateProvider, $locationProvider) => {
+    .config(($stateProvider) => {
         $stateProvider
             .state({
                 name: 'usersSearch',
@@ -22,6 +22,4 @@ angular
                 templateUrl: './resultView.html',
                 controller: controllers.userData,
             });
-
-        $locationProvider.html5Mode(true);
     });

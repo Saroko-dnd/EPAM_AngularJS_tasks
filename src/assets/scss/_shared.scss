@@ -48,6 +48,7 @@ a {
   font-family: $font-links;
   color: $color-links;
   font-size: 5rem;
+  text-decoration: underline;
 }
 
 input {
@@ -59,7 +60,7 @@ nav a {
   margin: 0 30px;
 }
 
-.active {
+a.active {
   font-size: 10rem;
 }
 
