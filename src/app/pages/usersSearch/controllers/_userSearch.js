@@ -1,40 +1,21 @@
 /* @ngInject */
-const userSearch = ($q, $scope, dataService, userDataCache) => {
-    init();
-
-    $scope.errorMessage = [].message;
-
+const userSearch = ($state, $scope, userDataCache) => {
     $scope.getUserInfo = getUserInfo;
 
+    init();
+
     function init() {
-        $scope.userData = userDataCache.getData() || {};
+        const userData = userDataCache.getData();
+
+        if (userData) {
+            $state.go('usersSearch.result', {
+                login: userDataCache.getData().login,
+            });
+        }
     }
 
     function getUserInfo() {
-        $q
-            .all([
-                dataService.loadUserData($scope.login),
-                dataService.loadUserFollowers($scope.login, 1),
-                dataService.loadUserFollowingList($scope.login, 1),
-                dataService.loadNumberOfStarredRepositories($scope.login),
-                dataService.loadListOfRepositories($scope.login),
-            ])
-            .then(
-                (dataArray) => {
-                    [
-                        $scope.userData,
-                        $scope.userData.followersList,
-                        $scope.userData.followingList,
-                        $scope.userData.starredReposCount,
-                        $scope.userData.repositoriesList,
-                    ] = dataArray;
-
-                    $scope.errorMessage = '';
-                },
-                (errorResponse) => {
-                    $scope.errorMessage = errorResponse.data.message;
-                },
-            );
+        $state.go('usersSearch.result', { login: $scope.login });
     }
 };
 

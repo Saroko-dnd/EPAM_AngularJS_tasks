@@ -1,0 +1,71 @@
+<!--<ol>
+            <li>
+                <a href="">Followers</a>
+            </li>
+            <li>
+                <a href="">Following</a>
+            </li>
+            <li>
+                <a href="">Repositories</a>
+            </li>
+        </ol>-->
+<p ng-bind="userData.message" class="error-message"></p>
+<div ng-if="userData.login">
+    <h3>username: {{userData.name}}</h3>
+    <img ng-src="{{userData.avatar_url}}">
+    <article class="user-info-container">
+        <h3>user followers</h3>
+        <p class="important-info">Count: {{userData.followers}}</p>
+        <h4>List of followers (only first 30)</h4>
+        <table class="items-list">
+            <tbody>
+                <tr ng-repeat="follower in userData.followersList">
+                    <td>
+                        <p class="text" ng-bind="follower.login"></p>
+                    </td>
+                    <td>
+                        <img ng-src="{{follower.avatar_url}}">
+                    </td>
+                    <td>
+                        <a ng-href="{{follower.html_url}}" target="_blank">Profile link</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article class="user-info-container">
+        <h3>user following</h3>
+        <p class="important-info">Count: {{userData.following}}</p>
+        <h4>Following list (only first 30)</h4>
+        <table class="items-list">
+            <tbody>
+                <tr ng-repeat="user in userData.followingList">
+                    <td>
+                        <p class="text" ng-bind="user.login"></p>
+                    </td>
+                    <td>
+                        <img ng-src="{{user.avatar_url}}">
+                    </td>
+                    <td>
+                        <a ng-href="{{user.html_url}}" target="_blank">Profile link</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+    <article class="user-info-container">
+        <h3>repositories</h3>
+        <p class="important-info">Count: {{userData.public_repos}}</p>
+        <p class="important-info">Stars: {{userData.starredReposCount}}</p>
+        <h4>Repositories (only first 30)</h4>
+        <table class="items-list">
+            <tbody>
+                <tr ng-repeat="repository in userData.repositoriesList">
+                    <td>
+                        <a ng-href="{{repository.html_url}}" target="_blank">{{repository.name}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
+</div>

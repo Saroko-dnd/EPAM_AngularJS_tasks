@@ -9,13 +9,19 @@ angular
     .service('userDataCache', services.userDataCache)
     .service('dataService', services.database)
     .config(($stateProvider, $locationProvider) => {
-        $stateProvider.state({
-            name: 'usersSearch',
-            url: '/usersSearch',
-            cache: true,
-            templateUrl: './view.html',
-            controller: controllers.userSearch,
-        });
+        $stateProvider
+            .state({
+                name: 'usersSearch',
+                url: '/usersSearch',
+                templateUrl: './view.html',
+                controller: controllers.userSearch,
+            })
+            .state({
+                name: 'usersSearch.result',
+                url: '/:login',
+                templateUrl: './resultView.html',
+                controller: controllers.userData,
+            });
 
         $locationProvider.html5Mode(true);
     });
