@@ -26,9 +26,11 @@ class Database {
             );
     }
 
-    loadUserFollowers(login, page) {
+    loadUserFollowers(login, page, limit) {
+        this.userDataCache.saveData('followersPage', page);
+
         return this.$http
-            .get(`https://api.github.com/users/${login}/followers?page=${page}`)
+            .get(`https://api.github.com/users/${login}/followers?page=${page}&per_page=${limit}`)
             .then(
                 response =>
                     this.userDataCache.saveData('followersList', response.data),
@@ -36,9 +38,11 @@ class Database {
             );
     }
 
-    loadUserFollowingList(login, page) {
+    loadUserFollowingList(login, page, limit) {
+        this.userDataCache.saveData('followingPage', page);
+
         return this.$http
-            .get(`https://api.github.com/users/${login}/following?page=${page}`)
+            .get(`https://api.github.com/users/${login}/following?page=${page}&per_page=${limit}`)
             .then(
                 response =>
                     this.userDataCache.saveData('followingList', response.data),
@@ -80,9 +84,11 @@ class Database {
             );
     }
 
-    loadListOfRepositories(login) {
+    loadListOfRepositories(login, page, limit) {
+        this.userDataCache.saveData('repositoriesPage', page);
+
         return this.$http
-            .get(`https://api.github.com/users/${login}/repos`)
+            .get(`https://api.github.com/users/${login}/repos?page=${page}&per_page=${limit}`)
             .then(
                 response =>
                     this.userDataCache.saveData(

@@ -21,6 +21,9 @@ class userDataCache {
             data.followingList = this.cache.get('followingList');
             data.repositoriesList = this.cache.get('repositoriesList');
             data.starredReposCount = this.cache.get('starredReposCount');
+            data.followersPage = this.cache.get('followersPage');
+            data.followingPage = this.cache.get('followingPage');
+            data.repositoriesPage = this.cache.get('repositoriesPage');
         }
 
         return data;

@@ -1,0 +1,44 @@
+.pagination {
+  justify-content: center;
+
+  *:hover {
+    color: $color-pagination-hover;
+  }
+
+  &-page {
+    &.active {
+      * {
+        color: $color-pagination-active;
+      }
+    }
+    margin: 0 10px;
+  }
+
+  &-prev {
+    a {
+      color: $color-pagination-next-prev;
+    }
+    margin: 0 2rem 0 0;
+  }
+
+  &-next {
+    a {
+      color: $color-pagination-next-prev;
+    }
+    margin: 0 0 0 2rem;
+  }
+
+  &-first {
+    a {
+      color: $color-pagination-first-last;
+    }
+    margin: 0 0.5rem 0 0;
+  }
+
+  &-last {
+    a {
+      color: $color-pagination-first-last;
+    }
+    margin: 0 0 0 0.5rem;
+  }
+}

@@ -6,7 +6,7 @@
         <uib-tab heading="Followers">
             <article class="user-info-container">
                 <p class="important-info">Count: {{userData.followers}}</p>
-                <h4>List of followers (only first 30)</h4>
+                <h4>List of followers</h4>
                 <table class="items-list">
                     <tbody>
                         <tr ng-repeat="follower in userData.followersList">
@@ -22,12 +22,14 @@
                         </tr>
                     </tbody>
                 </table>
+                <ul uib-pagination total-items="userData.followers" ng-model="userData.followersPage" items-per-page="pagination.itemsPerPage"
+                    class="pagination-sm" max-size="pagination.pagesLimit" boundary-links="true" force-ellipses="true"></ul>
             </article>
         </uib-tab>
         <uib-tab heading="Following">
             <article class="user-info-container">
                 <p class="important-info">Count: {{userData.following}}</p>
-                <h4>Following list (only first 30)</h4>
+                <h4>Following list</h4>
                 <table class="items-list">
                     <tbody>
                         <tr ng-repeat="user in userData.followingList">
@@ -43,13 +45,15 @@
                         </tr>
                     </tbody>
                 </table>
+                <ul uib-pagination total-items="userData.following" ng-model="userData.followingPage" items-per-page="pagination.itemsPerPage"
+                    class="pagination-sm" max-size="pagination.pagesLimit" boundary-links="true" force-ellipses="true"></ul>
             </article>
         </uib-tab>
         <uib-tab heading="Repositories">
             <article class="user-info-container">
                 <p class="important-info">Count: {{userData.public_repos}}</p>
                 <p class="important-info">Stars: {{userData.starredReposCount}}</p>
-                <h4>Repositories (only first 30)</h4>
+                <h4>Repositories</h4>
                 <table class="items-list">
                     <tbody>
                         <tr ng-repeat="repository in userData.repositoriesList">
@@ -59,6 +63,8 @@
                         </tr>
                     </tbody>
                 </table>
+                <ul uib-pagination total-items="userData.public_repos" ng-model="userData.repositoriesPage" items-per-page="pagination.itemsPerPage"
+                    class="pagination-sm" max-size="pagination.pagesLimit" boundary-links="true" force-ellipses="true"></ul>
             </article>
         </uib-tab>
     </uib-tabset>
