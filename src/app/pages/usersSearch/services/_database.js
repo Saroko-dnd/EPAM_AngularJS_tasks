@@ -28,6 +28,7 @@ class Database {
 
     loadUserFollowers(login, page, limit) {
         this.userDataCache.saveData('followersPage', page);
+        this.userDataCache.saveData('lastOpenedCategory', 'followers');
 
         return this.$http
             .get(`https://api.github.com/users/${login}/followers?page=${page}&per_page=${limit}`)
@@ -40,6 +41,7 @@ class Database {
 
     loadUserFollowingList(login, page, limit) {
         this.userDataCache.saveData('followingPage', page);
+        this.userDataCache.saveData('lastOpenedCategory', 'following');
 
         return this.$http
             .get(`https://api.github.com/users/${login}/following?page=${page}&per_page=${limit}`)
@@ -86,6 +88,7 @@ class Database {
 
     loadListOfRepositories(login, page, limit) {
         this.userDataCache.saveData('repositoriesPage', page);
+        this.userDataCache.saveData('lastOpenedCategory', 'repositories');
 
         return this.$http
             .get(`https://api.github.com/users/${login}/repos?page=${page}&per_page=${limit}`)

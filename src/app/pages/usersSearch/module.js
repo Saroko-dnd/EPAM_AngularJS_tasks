@@ -18,7 +18,7 @@ angular
             })
             .state({
                 name: 'usersSearch.result',
-                url: '/:login',
+                url: '/:login/:tabName?page',
                 templateUrl: './resultView.html',
                 controller: controllers.userData,
             });

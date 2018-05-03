@@ -24,6 +24,7 @@ class userDataCache {
             data.followersPage = this.cache.get('followersPage');
             data.followingPage = this.cache.get('followingPage');
             data.repositoriesPage = this.cache.get('repositoriesPage');
+            data.lastOpenedCategory = this.cache.get('lastOpenedCategory');
         }
 
         return data;
