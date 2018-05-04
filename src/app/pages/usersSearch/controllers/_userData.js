@@ -46,7 +46,20 @@ const userData = (
             selectUserDataByParams($stateParams.login);
         }
 
+        scrollDown();
+
         // activatePaging();
+    }
+
+    function scrollDown() {
+        $timeout(
+            () => {
+                $location.hash('bottom');
+                $anchorScroll();
+            },
+            0,
+            false,
+        );
     }
 
     function loadFollowers() {
