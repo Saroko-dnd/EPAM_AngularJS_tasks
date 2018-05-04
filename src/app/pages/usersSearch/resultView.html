@@ -2,14 +2,14 @@
 <div ng-if="userData.login">
     <h3>username: {{userData.name}}</h3>
     <img ng-src="{{userData.avatar_url}}">
-    <uib-tabset type="pills" justified="true" active="activeTab">
+    <uib-tabset id="scrollTarget" type="pills" justified="true" active="activeTab">
         <uib-tab heading="Followers" index="0" select="tabChanged(0)">
-            <article class="user-info-container">
+            <article id="followersPaging" class="user-info-container">
                 <p class="important-info">Count: {{userData.followers}}</p>
                 <h4>List of followers</h4>
                 <table class="items-list">
                     <tbody>
-                        <tr ng-repeat="follower in userData.followersList">
+                        <tr ng-repeat="follower in userData.followersList" repeat-end="$anchorScroll()">
                             <td>
                                 <p class="text" ng-bind="follower.login"></p>
                             </td>
@@ -33,7 +33,7 @@
                 <h4>Following list</h4>
                 <table class="items-list">
                     <tbody>
-                        <tr ng-repeat="user in userData.followingList">
+                        <tr ng-repeat="user in userData.followingList" repeat-end="$anchorScroll()">
                             <td>
                                 <p class="text" ng-bind="user.login"></p>
                             </td>
@@ -58,7 +58,7 @@
                 <h4>Repositories</h4>
                 <table class="items-list">
                     <tbody>
-                        <tr ng-repeat="repository in userData.repositoriesList">
+                        <tr ng-repeat="repository in userData.repositoriesList" repeat-end="$anchorScroll()">
                             <td>
                                 <a ng-href="{{repository.html_url}}" target="_blank">{{repository.name}}</a>
                             </td>

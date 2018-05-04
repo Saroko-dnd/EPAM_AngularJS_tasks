@@ -4,7 +4,7 @@
         <input ng-model="login" ng-keyup="$event.keyCode === KeyCodes.enter && getUserInfo()" type="text" placeholder="enter any github login">
         <input ng-click="getUserInfo()" type="button" value="SEARCH">
     </section>
-    <section ui-view autoscroll="false">
+    <section ui-view>
     </section>
     <!-- <a  href="https://github.com/login/oauth/authorize?client_id={{client_id}}">try OAuth</a> -->
 </div>

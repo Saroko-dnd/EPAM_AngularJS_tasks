@@ -1,11 +1,12 @@
 class Database {
     /* @ngInject */
-    constructor($q, $http, apiToken, userDataCache) {
+    constructor($q, $http, apiToken, userDataCache, usersLink) {
         this.$http = $http;
         this.apiToken = apiToken;
         this.cache = {};
         this.userDataCache = userDataCache;
         this.$q = $q;
+        this.usersLink = usersLink;
     }
 
     static get regexpLastPage() {
@@ -18,7 +19,7 @@ class Database {
 
     loadUserData(login) {
         return this.$http
-            .get(`https://api.github.com/users/${login}`)
+            .get(this.usersLink + login)
             .then(
                 response =>
                     this.userDataCache.saveData('userData', response.data),
@@ -31,7 +32,8 @@ class Database {
         this.userDataCache.saveData('lastOpenedCategory', 'followers');
 
         return this.$http
-            .get(`https://api.github.com/users/${login}/followers?page=${page}&per_page=${limit}`)
+            .get(`${this.usersLink +
+                    login}/followers?page=${page}&per_page=${limit}`)
             .then(
                 response =>
                     this.userDataCache.saveData('followersList', response.data),
@@ -44,7 +46,8 @@ class Database {
         this.userDataCache.saveData('lastOpenedCategory', 'following');
 
         return this.$http
-            .get(`https://api.github.com/users/${login}/following?page=${page}&per_page=${limit}`)
+            .get(`${this.usersLink +
+                    login}/following?page=${page}&per_page=${limit}`)
             .then(
                 response =>
                     this.userDataCache.saveData('followingList', response.data),
@@ -56,34 +59,32 @@ class Database {
         let starredCount = 0;
         let lastPage = 0;
 
-        return this.$http
-            .get(`https://api.github.com/users/${login}/starred`)
-            .then(
-                (response) => {
-                    if (response.headers('link')) {
-                        [lastPage] = response
-                            .headers('link')
-                            .match(Database.regexpLastPage)
-                            .map(number => +number);
+        return this.$http.get(`${this.usersLink + login}/starred`).then(
+            (response) => {
+                if (response.headers('link')) {
+                    [lastPage] = response
+                        .headers('link')
+                        .match(Database.regexpLastPage)
+                        .map(number => +number);
 
-                        starredCount += Database.perPage * (lastPage - 1);
+                    starredCount += Database.perPage * (lastPage - 1);
 
-                        return this.$http
-                            .get(`https://api.github.com/users/${login}/starred?page=${lastPage}`)
-                            .then(serverAnswer =>
-                                this.userDataCache.saveData(
-                                    'starredReposCount',
-                                    serverAnswer.data.length + starredCount,
-                                ));
-                    }
+                    return this.$http
+                        .get(`https://api.github.com/users/${login}/starred?page=${lastPage}`)
+                        .then(serverAnswer =>
+                            this.userDataCache.saveData(
+                                'starredReposCount',
+                                serverAnswer.data.length + starredCount,
+                            ));
+                }
 
-                    return this.userDataCache.saveData(
-                        'starredReposCount',
-                        response.data.length,
-                    );
-                },
-                response => this.$q.reject(response),
-            );
+                return this.userDataCache.saveData(
+                    'starredReposCount',
+                    response.data.length,
+                );
+            },
+            response => this.$q.reject(response),
+        );
     }
 
     loadListOfRepositories(login, page, limit) {
@@ -91,7 +92,8 @@ class Database {
         this.userDataCache.saveData('lastOpenedCategory', 'repositories');
 
         return this.$http
-            .get(`https://api.github.com/users/${login}/repos?page=${page}&per_page=${limit}`)
+            .get(`${this.usersLink +
+                    login}/repos?page=${page}&per_page=${limit}`)
             .then(
                 response =>
                     this.userDataCache.saveData(

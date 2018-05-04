@@ -4,6 +4,7 @@ const userData = (
     $stateParams,
     $location,
     $q,
+    $anchorScroll,
     $scope,
     $state,
     dataService,
@@ -13,6 +14,7 @@ const userData = (
     $scope.loadFollowers = loadFollowers;
     $scope.loadFollowing = loadFollowing;
     $scope.loadRepositories = loadRepositories;
+    $scope.$anchorScroll = $anchorScroll;
 
     $scope.pagination = {
         itemsPerPage: 5,
@@ -43,18 +45,6 @@ const userData = (
         } else {
             selectUserDataByParams($stateParams.login);
         }
-
-        scrollDown();
-    }
-
-    function scrollDown() {
-        $timeout(
-            () => {
-                $location.hash('bottom');
-            },
-            0,
-            false,
-        );
     }
 
     function loadFollowers() {
@@ -74,6 +64,7 @@ const userData = (
             login: $scope.userData.login,
             tabName,
             page,
+            '#': 'scrollTarget',
         });
     }
 
@@ -94,11 +85,13 @@ const userData = (
     }
 
     function selectUserDataByParams(userLogin) {
+        let resultPromise = null;
+
         switch ($stateParams.tabName) {
         case 'followers':
             $scope.activeTab = 0;
             $scope.userData.followersPage = $stateParams.page;
-            dataService
+            resultPromise = dataService
                 .loadUserFollowers(
                     userLogin,
                     $stateParams.page,
@@ -111,7 +104,7 @@ const userData = (
         case 'following':
             $scope.activeTab = 1;
             $scope.userData.followingPage = $stateParams.page;
-            dataService
+            resultPromise = dataService
                 .loadUserFollowingList(
                     userLogin,
                     $stateParams.page,
@@ -124,7 +117,7 @@ const userData = (
         case 'repositories':
             $scope.activeTab = 2;
             $scope.userData.repositoriesPage = $stateParams.page;
-            $q
+            resultPromise = $q
                 .all([
                     dataService.loadNumberOfStarredRepositories($stateParams.login),
                     dataService.loadListOfRepositories(
@@ -145,6 +138,8 @@ const userData = (
         default:
             break;
         }
+
+        return resultPromise;
     }
 };
 
