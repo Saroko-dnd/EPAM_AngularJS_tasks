@@ -1,7 +1,8 @@
 /* @ngInject */
-const userSearch = ($state, $scope, userDataCache) => {
+const userSearch = ($state, $scope, userDataCache, KeyCodes) => {
     $scope.getUserInfo = getUserInfo;
     $scope.login = '';
+    $scope.KeyCodes = KeyCodes;
 
     init();
 

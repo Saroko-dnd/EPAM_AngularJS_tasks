@@ -3,14 +3,12 @@ const userData = (
     $timeout,
     $stateParams,
     $location,
-    $anchorScroll,
     $q,
     $scope,
     $state,
     dataService,
     userDataCache,
 ) => {
-    // $scope.getUserInfo = getUserInfo;
     $scope.tabChanged = tabChanged;
     $scope.loadFollowers = loadFollowers;
     $scope.loadFollowing = loadFollowing;
@@ -47,15 +45,12 @@ const userData = (
         }
 
         scrollDown();
-
-        // activatePaging();
     }
 
     function scrollDown() {
         $timeout(
             () => {
                 $location.hash('bottom');
-                $anchorScroll();
             },
             0,
             false,
