@@ -8,7 +8,7 @@ const userData = (
     $scope,
     $state,
     dataService,
-    userDataCache,
+    // userDataCache,
 ) => {
     $scope.tabChanged = tabChanged;
     $scope.loadFollowers = loadFollowers;
@@ -24,19 +24,37 @@ const userData = (
     init();
 
     function init() {
-        $scope.userData = userDataCache.getData();
+        /* $scope.userData = userDataCache.getData();
 
-        if (
+        if ($scope.userData && $stateParams.login !== $scope.userData.login) {
+            $scope.userData = null;
+        } */
+
+        dataService.loadUserData($stateParams.login).then(
+            (newUserData) => {
+                $scope.userData = newUserData;
+                $scope.errorMessage = '';
+
+                selectUserDataByParams($stateParams.login);
+            },
+            (errorResponse) => {
+                $scope.userData = errorResponse.data;
+            },
+        );
+
+        /* if (
             !$scope.userData ||
             ($scope.login &&
                 $scope.login.toLowerCase() !== $stateParams.login.toLowerCase())
         ) {
+            console.log(`RECEIVED NEW USER DATA $scope.login ${$scope.login}`);
             dataService.loadUserData($scope.login).then(
                 (newUserData) => {
                     $scope.userData = newUserData;
                     $scope.errorMessage = '';
 
                     selectUserDataByParams($scope.login);
+                    console.log($scope.userData);
                 },
                 (errorResponse) => {
                     $scope.userData = errorResponse.data;
@@ -44,7 +62,7 @@ const userData = (
             );
         } else {
             selectUserDataByParams($stateParams.login);
-        }
+        } */
     }
 
     function loadFollowers() {
@@ -119,7 +137,7 @@ const userData = (
             $scope.userData.repositoriesPage = $stateParams.page;
             resultPromise = $q
                 .all([
-                    dataService.loadNumberOfStarredRepositories($stateParams.login),
+                    dataService.loadNumberOfStarredRepositories(userLogin),
                     dataService.loadListOfRepositories(
                         userLogin,
                         $stateParams.page,
