@@ -7,8 +7,8 @@ const userData = (
     $anchorScroll,
     $scope,
     $state,
-    dataService,
-    // userDataCache,
+    userDataService,
+    userDataCache,
 ) => {
     $scope.tabChanged = tabChanged;
     $scope.loadFollowers = loadFollowers;
@@ -24,23 +24,23 @@ const userData = (
     init();
 
     function init() {
-        /* $scope.userData = userDataCache.getData();
+        $scope.userData = userDataCache.getUserData($stateParams.login);
 
-        if ($scope.userData && $stateParams.login !== $scope.userData.login) {
-            $scope.userData = null;
-        } */
+        if ($scope.userData) {
+            selectUserDataByParams($stateParams.login);
+        } else {
+            userDataService.loadUserData($stateParams.login).then(
+                (newUserData) => {
+                    $scope.userData = newUserData;
+                    $scope.errorMessage = '';
 
-        dataService.loadUserData($stateParams.login).then(
-            (newUserData) => {
-                $scope.userData = newUserData;
-                $scope.errorMessage = '';
-
-                selectUserDataByParams($stateParams.login);
-            },
-            (errorResponse) => {
-                $scope.userData = errorResponse.data;
-            },
-        );
+                    selectUserDataByParams($stateParams.login);
+                },
+                (errorResponse) => {
+                    $scope.userData = errorResponse.data;
+                },
+            );
+        }
 
         /* if (
             !$scope.userData ||
@@ -109,7 +109,7 @@ const userData = (
         case 'followers':
             $scope.activeTab = 0;
             $scope.userData.followersPage = $stateParams.page;
-            resultPromise = dataService
+            resultPromise = userDataService
                 .loadUserFollowers(
                     userLogin,
                     $stateParams.page,
@@ -122,7 +122,7 @@ const userData = (
         case 'following':
             $scope.activeTab = 1;
             $scope.userData.followingPage = $stateParams.page;
-            resultPromise = dataService
+            resultPromise = userDataService
                 .loadUserFollowingList(
                     userLogin,
                     $stateParams.page,
@@ -137,8 +137,8 @@ const userData = (
             $scope.userData.repositoriesPage = $stateParams.page;
             resultPromise = $q
                 .all([
-                    dataService.loadNumberOfStarredRepositories(userLogin),
-                    dataService.loadListOfRepositories(
+                    userDataService.loadNumberOfStarredRepositories(userLogin),
+                    userDataService.loadListOfRepositories(
                         userLogin,
                         $stateParams.page,
                         $scope.pagination.itemsPerPage,

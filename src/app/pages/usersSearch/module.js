@@ -7,7 +7,7 @@ import services from './services';
 angular
     .module('page.userSearch', ['userSearchVariables'])
     .service('userDataCache', services.userDataCache)
-    .service('dataService', services.database)
+    .service('userDataService', services.userDataService)
     .config(($stateProvider) => {
         $stateProvider
             .state({

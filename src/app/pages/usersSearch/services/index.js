@@ -1,7 +1,7 @@
-import database from './_database';
+import userDataService from './_userData';
 import userDataCache from './_userDataCache';
 
 export default {
-    database,
+    userDataService,
     userDataCache,
 };

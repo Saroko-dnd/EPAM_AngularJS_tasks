@@ -1,4 +1,4 @@
-class Database {
+class userDataService {
     /* @ngInject */
     constructor($q, $http, apiToken, userDataCache, usersLink) {
         this.$http = $http;
@@ -22,7 +22,10 @@ class Database {
             .get(this.usersLink + login)
             .then(
                 response =>
-                    this.userDataCache.saveData('userData', response.data),
+                    this.userDataCache.saveUser(
+                        response.data.login,
+                        response.data,
+                    ),
                 response => this.$q.reject(response),
             );
     }
@@ -64,10 +67,10 @@ class Database {
                 if (response.headers('link')) {
                     [lastPage] = response
                         .headers('link')
-                        .match(Database.regexpLastPage)
+                        .match(userDataService.regexpLastPage)
                         .map(number => +number);
 
-                    starredCount += Database.perPage * (lastPage - 1);
+                    starredCount += userDataService.perPage * (lastPage - 1);
 
                     return this.$http
                         .get(`https://api.github.com/users/${login}/starred?page=${lastPage}`)
@@ -109,4 +112,4 @@ class Database {
     }
 }
 
-export default Database;
+export default userDataService;

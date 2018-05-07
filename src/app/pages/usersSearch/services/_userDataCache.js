@@ -1,7 +1,8 @@
 class userDataCache {
     /* @ngInject */
     constructor($cacheFactory, userDataCacheID) {
-        this.cache = $cacheFactory(userDataCacheID);
+        this.usersCache = $cacheFactory(userDataCacheID, { capacity: 5 });
+        this.cache = $cacheFactory('dhfdfhdfjdhjfh', { capacity: 5 });
     }
 
     saveData(key, value) {
@@ -9,8 +10,17 @@ class userDataCache {
         return value;
     }
 
+    saveUser(login, userData) {
+        this.usersCache.put(login.toLowerCase(), userData);
+        return userData;
+    }
+
     clear() {
         this.cache.removeAll();
+    }
+
+    getUserData(login) {
+        return this.usersCache.get(login.toLowerCase());
     }
 
     getData() {
