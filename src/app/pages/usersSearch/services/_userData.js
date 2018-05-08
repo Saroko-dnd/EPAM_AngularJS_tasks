@@ -18,6 +18,23 @@ class userDataService {
     }
 
     loadUserData(login) {
+        return this.$q
+            .all([
+                this.loadUserDataObject(login),
+                this.loadNumberOfStarredRepositories(login),
+            ])
+            .then((dataArray) => {
+                let userData = null;
+                let starredRepositories = null;
+
+                [userData, starredRepositories] = dataArray;
+                userData.starredReposCount = starredRepositories;
+
+                return userData;
+            });
+    }
+
+    loadUserDataObject(login) {
         return this.$http
             .get(this.usersLink + login)
             .then(
@@ -31,29 +48,33 @@ class userDataService {
     }
 
     loadUserFollowers(login, page, limit) {
-        this.userDataCache.saveData('followersPage', page);
-        this.userDataCache.saveData('lastOpenedCategory', 'followers');
-
         return this.$http
             .get(`${this.usersLink +
                     login}/followers?page=${page}&per_page=${limit}`)
             .then(
                 response =>
-                    this.userDataCache.saveData('followersList', response.data),
+                    this.userDataCache.savePageData(
+                        'followers',
+                        page,
+                        login,
+                        response.data,
+                    ),
                 response => this.$q.reject(response),
             );
     }
 
     loadUserFollowingList(login, page, limit) {
-        this.userDataCache.saveData('followingPage', page);
-        this.userDataCache.saveData('lastOpenedCategory', 'following');
-
         return this.$http
             .get(`${this.usersLink +
                     login}/following?page=${page}&per_page=${limit}`)
             .then(
                 response =>
-                    this.userDataCache.saveData('followingList', response.data),
+                    this.userDataCache.savePageData(
+                        'following',
+                        page,
+                        login,
+                        response.data,
+                    ),
                 response => this.$q.reject(response),
             );
     }
@@ -75,40 +96,29 @@ class userDataService {
                     return this.$http
                         .get(`https://api.github.com/users/${login}/starred?page=${lastPage}`)
                         .then(serverAnswer =>
-                            this.userDataCache.saveData(
-                                'starredReposCount',
-                                serverAnswer.data.length + starredCount,
-                            ));
+                            serverAnswer.data.length + starredCount);
                 }
 
-                return this.userDataCache.saveData(
-                    'starredReposCount',
-                    response.data.length,
-                );
+                return response.data.length;
             },
             response => this.$q.reject(response),
         );
     }
 
     loadListOfRepositories(login, page, limit) {
-        this.userDataCache.saveData('repositoriesPage', page);
-        this.userDataCache.saveData('lastOpenedCategory', 'repositories');
-
         return this.$http
             .get(`${this.usersLink +
                     login}/repos?page=${page}&per_page=${limit}`)
             .then(
                 response =>
-                    this.userDataCache.saveData(
-                        'repositoriesList',
+                    this.userDataCache.savePageData(
+                        'repositories',
+                        page,
+                        login,
                         response.data,
                     ),
                 response => this.$q.reject(response),
             );
-    }
-
-    getLoadedData() {
-        return this.userDataCache.getData();
     }
 }
 
