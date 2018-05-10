@@ -30,7 +30,7 @@ class userDataService {
                 [userData, starredRepositories] = dataArray;
                 userData.starredReposCount = starredRepositories;
 
-                return userData;
+                return this.userDataCache.saveUser(userData.login, userData);
             });
     }
 
@@ -38,11 +38,7 @@ class userDataService {
         return this.$http
             .get(this.usersLink + login)
             .then(
-                response =>
-                    this.userDataCache.saveUser(
-                        response.data.login,
-                        response.data,
-                    ),
+                response => response.data,
                 response => this.$q.reject(response),
             );
     }

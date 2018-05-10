@@ -3,7 +3,7 @@ class userDataCache {
     constructor($cacheFactory, userDataCacheID, userDataPagesCacheID) {
         this.usersCache = $cacheFactory(userDataCacheID, { capacity: 5 });
         this.pagesDataCache = $cacheFactory(userDataPagesCacheID, {
-            capacity: 5,
+            capacity: 10,
         });
     }
 

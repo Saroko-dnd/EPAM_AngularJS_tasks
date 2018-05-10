@@ -13,13 +13,42 @@ angular
             .state({
                 name: 'usersSearch',
                 url: '/usersSearch',
-                templateUrl: './view.html',
+                templateUrl: './views/view.html',
                 controller: controllers.userSearch,
             })
             .state({
                 name: 'usersSearch.result',
-                url: '/:login/:tabName?page',
-                templateUrl: './resultView.html',
+                url: '/:login',
+                templateUrl: './views/resultView.html',
+                params: {
+                    itemsPerPage: null,
+                    pagesLimit: null,
+                    tabName: null,
+                    page: null,
+                    search: null,
+                },
                 controller: controllers.userData,
+            })
+            .state({
+                name: 'usersSearch.result.userDataLists',
+                url: '/:tabName?page',
+                params: {
+                    userData: null,
+                },
+                // controller: controllers.userData,
+                views: {
+                    followers: {
+                        templateUrl: './views/followers.html',
+                        controller: controllers.followers,
+                    },
+                    following: {
+                        templateUrl: './views/following.html',
+                        controller: controllers.following,
+                    },
+                    repositories: {
+                        templateUrl: './views/repositories.html',
+                        controller: controllers.repositories,
+                    },
+                },
             });
     });

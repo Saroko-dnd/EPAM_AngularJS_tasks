@@ -1,10 +1,6 @@
 /* @ngInject */
 const userData = (
-    $timeout,
     $stateParams,
-    $location,
-    $q,
-    $anchorScroll,
     $scope,
     $state,
     userDataService,
@@ -12,55 +8,38 @@ const userData = (
     userDataTabsIndexes,
 ) => {
     $scope.tabChanged = tabChanged;
-    $scope.loadFollowers = loadFollowers;
-    $scope.loadFollowing = loadFollowing;
-    $scope.loadRepositories = loadRepositories;
-    $scope.$anchorScroll = $anchorScroll;
-
-    $scope.pagination = {
-        itemsPerPage: 5,
-        pagesLimit: 10,
-    };
+    $scope.tabDataPage = $stateParams.page;
 
     init();
 
     function init() {
         $scope.userData = userDataCache.getUserData($stateParams.login);
 
-        if ($scope.userData) {
-            selectUserDataByParams($stateParams.login);
-        } else {
+        if (!$scope.userData) {
             userDataService.loadUserData($stateParams.login).then(
                 (newUserData) => {
                     $scope.userData = newUserData;
                     $scope.errorMessage = '';
 
-                    selectUserDataByParams($stateParams.login);
+                    activateViewForUserData();
                 },
                 (errorResponse) => {
                     $scope.userData = errorResponse.data;
                 },
             );
+        } else {
+            activateViewForUserData();
         }
+
+        $scope.activeTab = userDataTabsIndexes[$stateParams.tabName];
     }
 
-    function loadFollowers() {
-        loadUserData('followers', $scope.userData.followersPage);
-    }
-
-    function loadFollowing() {
-        loadUserData('following', $scope.userData.followingPage);
-    }
-
-    function loadRepositories() {
-        loadUserData('repositories', $scope.userData.repositoriesPage);
-    }
-
-    function loadUserData(tabName, page) {
-        $state.go('usersSearch.result', {
+    function activateViewForUserData() {
+        $state.go('usersSearch.result.userDataLists', {
+            tabName: $stateParams.tabName || 'followers',
+            userData: $scope.userData,
             login: $scope.userData.login,
-            tabName,
-            page: page || 1,
+            page: $stateParams.page,
             '#': 'scrollTarget',
         });
     }
@@ -68,70 +47,31 @@ const userData = (
     function tabChanged(tabIndex) {
         switch (tabIndex) {
         case 0:
-            loadFollowers();
+            loadUserData('followers');
             break;
         case 1:
-            loadFollowing();
+            loadUserData('following');
             break;
         case 2:
-            loadRepositories();
+            loadUserData('repositories');
             break;
         default:
             break;
         }
     }
 
-    function selectUserDataByParams(userLogin) {
-        $scope.userData[
-            `${$stateParams.tabName}List`
-        ] = userDataCache.getPageData(
-            $stateParams.tabName,
-            $stateParams.page,
-            $stateParams.login,
-        );
-        $scope.userData[`${$stateParams.tabName}Page`] = $stateParams.page;
-        $scope.activeTab = userDataTabsIndexes[$stateParams.tabName];
+    function loadUserData(tabName) {
+        $state.go('usersSearch.result.userDataLists', {
+            login: $stateParams.login,
+            tabName,
+            userData: $scope.userData,
+            itemsPerPage: 5,
+            page: $scope.tabDataPage,
+            pagesLimit: 10,
+            '#': 'scrollTarget',
+        });
 
-        if (!$scope.userData[`${$stateParams.tabName}List`]) {
-            switch ($stateParams.tabName) {
-            case 'followers':
-                userDataService
-                    .loadUserFollowers(
-                        userLogin,
-                        $stateParams.page,
-                        $scope.pagination.itemsPerPage,
-                    )
-                    .then((data) => {
-                        $scope.userData.followersList = data;
-                    });
-                break;
-            case 'following':
-                userDataService
-                    .loadUserFollowingList(
-                        userLogin,
-                        $stateParams.page,
-                        $scope.pagination.itemsPerPage,
-                    )
-                    .then((data) => {
-                        $scope.userData.followingList = data;
-                    });
-                break;
-            case 'repositories':
-                userDataService
-                    .loadListOfRepositories(
-                        userLogin,
-                        $stateParams.page,
-                        $scope.pagination.itemsPerPage,
-                    )
-                    .then((dataArray) => {
-                        $scope.userData.repositoriesList = dataArray;
-                        $scope.errorMessage = '';
-                    });
-                break;
-            default:
-                break;
-            }
-        }
+        $scope.tabDataPage = 1;
     }
 };
 

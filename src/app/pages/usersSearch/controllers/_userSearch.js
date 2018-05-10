@@ -1,30 +1,30 @@
 /* @ngInject */
-const userSearch = ($state, $scope, userDataCache, KeyCodes) => {
+const userSearch = (
+    $state,
+    $scope,
+    userDataService,
+    userDataCache,
+    KeyCodes,
+) => {
     $scope.getUserInfo = getUserInfo;
     $scope.login = '';
     $scope.KeyCodes = KeyCodes;
 
     init();
 
-    function init() {
-        /* const userData = userDataCache.getData();
-        console.log('userSearch init');
-        if (userData) {
-            $state.go('usersSearch.result', {
-                login: userData.login,
-                tabName: userData.lastOpenedCategory,
-                page: userData[`${userData.lastOpenedCategory}Page`],
-            });
-        } */
-    }
+    function init() {}
 
     function getUserInfo() {
         $state.go(
             'usersSearch.result',
             {
-                login: $scope.login,
                 tabName: 'followers',
+                login: $scope.login,
+                itemsPerPage: 5,
+                pagesLimit: 10,
+                '#': 'scrollTarget',
                 page: 1,
+                search: true,
             },
             { location: false },
         );
