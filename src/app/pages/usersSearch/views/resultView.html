@@ -1,8 +1,8 @@
-<p ng-bind="userData.message" class="error-message"></p>
+<!--<p ng-bind="userData.message" class="error-message"></p>
 <div ng-if="userData.login">
     <h3>username: {{userData.name}}</h3>
     <img ng-src="{{userData.avatar_url}}">
-    <uib-tabset id="scrollTarget" type="pills" justified="true" active="activeTab">
+    <uib-tabset id="scrollTarget" type="pills" justified="true" active="tabs.activeTab">
         <uib-tab heading="Followers" index="0" select="tabChanged(0)">
             <div ui-view="followers" autoscroll></div>
         </uib-tab>
@@ -13,4 +13,19 @@
             <div ui-view="repositories" autoscroll></div>
         </uib-tab>
     </uib-tabset>
+</div>-->
+
+<p ng-bind="userData.message" class="error-message"></p>
+<div ng-if="userData.login">
+    <h3>username: {{userData.name}}</h3>
+    <img ng-src="{{userData.avatar_url}}">
+    <uib-tabset id="userDataTabs" type="pills" justified="true" active="activeTab">
+        <uib-tab heading="Followers" ui-sref=".followersList" index="0" select="tabChanged(0)">
+        </uib-tab>
+        <uib-tab heading="Following" ui-sref=".followingList" index="1" select="tabChanged(1)">
+        </uib-tab>
+        <uib-tab heading="Repositories" ui-sref=".repositoriesList" index="2" select="tabChanged(2)">
+        </uib-tab>
+    </uib-tabset>
+    <div ui-view autoscroll></div>
 </div>

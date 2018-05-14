@@ -3,56 +3,78 @@ const repositories = (
     $state,
     $scope,
     $stateParams,
+    $anchorScroll,
     userDataCache,
     userDataService,
 ) => {
-    $scope.userData = $stateParams.userData;
-    $scope.pageChangedc = pageChanged;
-
-    $scope.pagination = {
-        itemsPerPage: $stateParams.itemsPerPage,
-        pagesLimit: $stateParams.pagesLimit,
-    };
+    let firstDataLoading = true;
+    console.log('repositories INIT');
+    $scope.loadRepositories = loadRepositories;
+    $scope.itemsPerPage = 20;
+    $scope.anchorScroll = anchorScroll;
+    $scope.page = 1;
 
     init();
 
     function init() {
-        $scope.userData.repositoriesPage =
-            $stateParams.tabName === 'repositories' && ($stateParams.page || 1);
+        if ($stateParams.userData) {
+            $scope.userData = $stateParams.userData;
+            $scope.userData.repositoriesList = [];
+        } else {
+            $scope.userData = userDataCache.getUserData($stateParams.login);
 
-        loadRepositories();
+            if (!$scope.userData) {
+                userDataService.loadUserData($stateParams.login).then(
+                    (newUserData) => {
+                        $scope.userData = newUserData;
+                        $scope.errorMessage = '';
+                        $scope.userData.repositoriesList = [];
+
+                        loadRepositories();
+                    },
+                    (errorResponse) => {
+                        $scope.userData = errorResponse.data;
+                    },
+                );
+            } else {
+                $scope.userData.repositoriesList = [];
+
+                loadRepositories();
+            }
+        }
     }
 
-    function pageChanged() {
-        $state.go('usersSearch.result.userDataLists', {
-            login: $stateParams.login,
-            tabName: 'repositories',
-            page: $scope.userData.repositoriesPage,
-            userData: $scope.userData,
-            itemsPerPage: 5,
-            pagesLimit: 10,
-            '#': 'scrollTarget',
-        });
+    function anchorScroll() {
+        if (firstDataLoading) {
+            $anchorScroll();
+            firstDataLoading = false;
+        }
     }
 
     function loadRepositories() {
-        $scope.userData.repositoriesList = userDataCache.getPageData(
-            $stateParams.tabName,
-            $scope.userData.repositoriesPage,
+        console.log('loadRepositories');
+
+        const cachedRepositoriesData = userDataCache.getPageData(
+            'repositories',
+            $scope.page,
             $stateParams.login,
         );
 
-        if (!$scope.userData.repositoriesList) {
+        if (!cachedRepositoriesData) {
             userDataService
                 .loadListOfRepositories(
                     $stateParams.login,
-                    $scope.userData.repositoriesPage,
-                    $stateParams.itemsPerPage,
+                    $scope.page,
+                    $scope.itemsPerPage,
                 )
                 .then((data) => {
-                    $scope.userData.repositoriesList = data;
+                    $scope.userData.repositoriesList.push(...data);
                 });
+        } else {
+            $scope.userData.repositoriesList.push(...cachedRepositoriesData);
         }
+
+        $scope.page += 1;
     }
 };
 

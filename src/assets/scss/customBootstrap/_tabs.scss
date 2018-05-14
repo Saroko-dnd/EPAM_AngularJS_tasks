@@ -15,3 +15,12 @@
     }
   }
 }
+
+#userDataTabs {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -ms-sticky;
+  position: -o-sticky;
+  position: sticky;
+  top: 15px;
+}

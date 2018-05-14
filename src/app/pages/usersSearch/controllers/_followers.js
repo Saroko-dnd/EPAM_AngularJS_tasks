@@ -3,56 +3,80 @@ const followers = (
     $state,
     $scope,
     $stateParams,
+    $anchorScroll,
     userDataCache,
     userDataService,
 ) => {
-    $scope.userData = $stateParams.userData;
-    $scope.pageChangeda = pageChanged;
+    let firstDataLoading = true;
 
-    $scope.pagination = {
-        itemsPerPage: $stateParams.itemsPerPage,
-        pagesLimit: $stateParams.pagesLimit,
-    };
+    console.log('Followers INIT');
+    console.log($stateParams.tabName);
+
+    $scope.loadFollowers = loadFollowers;
+    $scope.itemsPerPage = 20;
+    $scope.anchorScroll = anchorScroll;
+    $scope.page = 1;
 
     init();
 
-    function init() {
-        $scope.userData.followersPage =
-            $stateParams.tabName === 'followers' && ($stateParams.page || 1);
-
-        loadFollowers();
+    function anchorScroll() {
+        if (firstDataLoading) {
+            $anchorScroll();
+            firstDataLoading = false;
+        }
     }
 
-    function pageChanged() {
-        $state.go('usersSearch.result.userDataLists', {
-            login: $stateParams.login,
-            tabName: 'followers',
-            page: $scope.userData.followersPage,
-            userData: $scope.userData,
-            itemsPerPage: 5,
-            pagesLimit: 10,
-            '#': 'scrollTarget',
-        });
+    function init() {
+        if ($stateParams.userData) {
+            $scope.userData = $stateParams.userData;
+            $scope.userData.followersList = [];
+        } else {
+            $scope.userData = userDataCache.getUserData($stateParams.login);
+
+            if (!$scope.userData) {
+                userDataService.loadUserData($stateParams.login).then(
+                    (newUserData) => {
+                        $scope.userData = newUserData;
+                        $scope.errorMessage = '';
+                        $scope.userData.followersList = [];
+
+                        loadFollowers();
+                    },
+                    (errorResponse) => {
+                        $scope.userData = errorResponse.data;
+                    },
+                );
+            } else {
+                $scope.userData.followersList = [];
+
+                loadFollowers();
+            }
+        }
     }
 
     function loadFollowers() {
-        $scope.userData.followersList = userDataCache.getPageData(
-            $stateParams.tabName,
-            $scope.userData.followersPage,
+        console.log('loadFollowers');
+        const cachedFollowersData = userDataCache.getPageData(
+            'followers',
+            $scope.page,
             $stateParams.login,
         );
 
-        if (!$scope.userData.followersList) {
+        if (!cachedFollowersData) {
             userDataService
                 .loadUserFollowers(
                     $stateParams.login,
-                    $scope.userData.followersPage,
+                    $scope.page,
                     $stateParams.itemsPerPage,
                 )
                 .then((data) => {
-                    $scope.userData.followersList = data;
+                    $scope.userData.followersList.push(...data);
                 });
+        } else {
+            $scope.userData.followersList.push(...cachedFollowersData);
         }
+
+        $scope.page += 1;
     }
 };
 

@@ -20,35 +20,26 @@ angular
                 name: 'usersSearch.result',
                 url: '/:login',
                 templateUrl: './views/resultView.html',
-                params: {
-                    itemsPerPage: null,
-                    pagesLimit: null,
-                    tabName: null,
-                    page: null,
-                    search: null,
-                },
                 controller: controllers.userData,
             })
             .state({
-                name: 'usersSearch.result.userDataLists',
-                url: '/:tabName?page',
-                params: {
-                    userData: null,
-                },
-                // controller: controllers.userData,
-                views: {
-                    followers: {
-                        templateUrl: './views/followers.html',
-                        controller: controllers.followers,
-                    },
-                    following: {
-                        templateUrl: './views/following.html',
-                        controller: controllers.following,
-                    },
-                    repositories: {
-                        templateUrl: './views/repositories.html',
-                        controller: controllers.repositories,
-                    },
-                },
+                name: 'usersSearch.result.followersList',
+                url: '/followers',
+                templateUrl: './views/followers.html',
+                controller: controllers.followers,
+                /* onEnter: () => console.log('FOLLOWERS ENTER'),
+                onExit: event => console.log(event), */
+            })
+            .state({
+                name: 'usersSearch.result.followingList',
+                url: '/following',
+                templateUrl: './views/following.html',
+                controller: controllers.following,
+            })
+            .state({
+                name: 'usersSearch.result.repositoriesList',
+                url: '/repositories',
+                templateUrl: './views/repositories.html',
+                controller: controllers.repositories,
             });
     });

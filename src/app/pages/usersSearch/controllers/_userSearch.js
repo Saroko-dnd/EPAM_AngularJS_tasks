@@ -10,23 +10,22 @@ const userSearch = (
     $scope.login = '';
     $scope.KeyCodes = KeyCodes;
 
+    console.log('userSearch init');
+
     init();
 
     function init() {}
 
     function getUserInfo() {
+        console.log('userSearch LOADING');
+
         $state.go(
             'usersSearch.result',
             {
-                tabName: 'followers',
                 login: $scope.login,
-                itemsPerPage: 5,
-                pagesLimit: 10,
-                '#': 'scrollTarget',
-                page: 1,
-                search: true,
+                '#': 'userDataTabs',
             },
-            { location: false },
+            { location: true },
         );
     }
 };

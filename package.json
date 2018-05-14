@@ -45,6 +45,7 @@
         "angular": "^1.6.9",
         "angular-ui-bootstrap": "^2.5.6",
         "babel-polyfill": "^6.26.0",
+        "lodash": "^4.17.10",
         "ui-router-core": "^5.0.0",
         "ui-router-sticky-states": "^1.2.0"
     }

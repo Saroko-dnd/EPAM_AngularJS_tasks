@@ -5,10 +5,13 @@ const userData = (
     $state,
     userDataService,
     userDataCache,
-    userDataTabsIndexes,
+    // userDataTabsIndexes,
 ) => {
-    $scope.tabChanged = tabChanged;
-    $scope.tabDataPage = $stateParams.page;
+    // $scope.tabChanged = tabChanged;
+    // $scope.tabs = { activeTab: -1 };
+    console.log('userData INIT');
+    console.log($stateParams);
+    $scope.activeTab = -1;
 
     init();
 
@@ -21,30 +24,24 @@ const userData = (
                     $scope.userData = newUserData;
                     $scope.errorMessage = '';
 
-                    activateViewForUserData();
+                    loadUserData();
                 },
                 (errorResponse) => {
                     $scope.userData = errorResponse.data;
                 },
             );
         } else {
-            activateViewForUserData();
+            loadUserData();
         }
 
-        $scope.activeTab = userDataTabsIndexes[$stateParams.tabName];
+        // $scope.tabs.activeTab = userDataTabsIndexes[$stateParams.tabName];
+        console.log(`set activeTab ${$scope.activeTab}`);
     }
 
-    function activateViewForUserData() {
-        $state.go('usersSearch.result.userDataLists', {
-            tabName: $stateParams.tabName || 'followers',
-            userData: $scope.userData,
-            login: $scope.userData.login,
-            page: $stateParams.page,
-            '#': 'scrollTarget',
-        });
-    }
+    /* function tabChanged(tabIndex) {
+        console.log('tabChanged');
+        console.log(tabIndex);
 
-    function tabChanged(tabIndex) {
         switch (tabIndex) {
         case 0:
             loadUserData('followers');
@@ -58,20 +55,20 @@ const userData = (
         default:
             break;
         }
-    }
+    } */
 
-    function loadUserData(tabName) {
-        $state.go('usersSearch.result.userDataLists', {
-            login: $stateParams.login,
-            tabName,
-            userData: $scope.userData,
-            itemsPerPage: 5,
-            page: $scope.tabDataPage,
-            pagesLimit: 10,
-            '#': 'scrollTarget',
-        });
-
-        $scope.tabDataPage = 1;
+    function loadUserData(tabName = $stateParams.tabName) {
+        if ($scope.userData) {
+            console.log('userData LOADING');
+            console.log(tabName);
+            $state.go(
+                `usersSearch.result.${tabName}List`,
+                {
+                    '#': 'userDataTabs',
+                } /* ,
+                { location: false } */,
+            );
+        }
     }
 };
 
