@@ -47,6 +47,7 @@ const repositories = (
     function anchorScroll() {
         if (firstDataLoading) {
             $anchorScroll();
+            console.log('repositories anchorScroll');
             firstDataLoading = false;
         }
     }

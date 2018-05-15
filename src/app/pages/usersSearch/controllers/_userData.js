@@ -12,6 +12,7 @@ const userData = (
     console.log('userData INIT');
     console.log($stateParams);
     $scope.activeTab = -1;
+    $scope.$state = $state;
 
     init();
 

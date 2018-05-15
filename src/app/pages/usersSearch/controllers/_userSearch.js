@@ -1,6 +1,7 @@
 /* @ngInject */
 const userSearch = (
     $state,
+    $rootScope,
     $scope,
     userDataService,
     userDataCache,
@@ -9,6 +10,7 @@ const userSearch = (
     $scope.getUserInfo = getUserInfo;
     $scope.login = '';
     $scope.KeyCodes = KeyCodes;
+    $rootScope.$state = $state;
 
     console.log('userSearch init');
 

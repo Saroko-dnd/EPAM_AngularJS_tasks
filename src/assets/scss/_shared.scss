@@ -88,3 +88,8 @@ a.active {
   font-weight: bold;
   color: $color-info;
 }
+
+.sticky {
+  position: sticky;
+  top: 0px;
+}

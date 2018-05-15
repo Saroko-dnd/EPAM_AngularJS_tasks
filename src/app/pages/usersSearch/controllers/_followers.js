@@ -11,6 +11,8 @@ const followers = (
 
     console.log('Followers INIT');
     console.log($stateParams.tabName);
+    console.log('state test');
+    console.log($state.includes('usersSearch.result.followersList'));
 
     $scope.loadFollowers = loadFollowers;
     $scope.itemsPerPage = 20;
@@ -22,6 +24,7 @@ const followers = (
     function anchorScroll() {
         if (firstDataLoading) {
             $anchorScroll();
+            console.log('followers anchorScroll');
             firstDataLoading = false;
         }
     }

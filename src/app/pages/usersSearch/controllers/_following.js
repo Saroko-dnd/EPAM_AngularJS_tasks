@@ -48,6 +48,7 @@ const following = (
 
     function anchorScroll() {
         if (firstDataLoading) {
+            console.log('following anchorScroll');
             $anchorScroll();
             firstDataLoading = false;
         }
