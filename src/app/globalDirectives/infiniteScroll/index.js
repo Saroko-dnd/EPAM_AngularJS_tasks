@@ -4,9 +4,10 @@ import _ from 'lodash';
 const infiniteScroll = () => ({
     restrict: 'A',
     link(scope, element, attrs) {
+        const breakTime = 1000;
         const throttledScrollEventHandler = _.throttle(
             scrollEventHandler,
-            1000,
+            breakTime,
         );
 
         window.addEventListener('scroll', throttledScrollEventHandler);
@@ -20,12 +21,13 @@ const infiniteScroll = () => ({
             const documentClientHeight = document.documentElement.clientHeight;
             const documentScrollTop =
                 document.body.scrollTop || document.documentElement.scrollTop;
+            const bottomDistance = 1000;
 
             if (
                 documentScrollHeight <
-                documentClientHeight + documentScrollTop + 1000
+                documentClientHeight + documentScrollTop + bottomDistance
             ) {
-                scope.$eval(attrs.sivOnScroll);
+                scope.$eval(attrs.sivScrollDown);
             }
         }
     },

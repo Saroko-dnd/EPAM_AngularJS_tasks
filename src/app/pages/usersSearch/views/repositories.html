@@ -1,8 +1,8 @@
-<article siv-infinite-scroll siv-on-scroll="loadRepositories()" class="user-info-container">
+<article siv-scroll-down="loadRepositories()" class="user-info-container">
     <h4>Repositories</h4>
     <p class="important-info">Count: {{userData.public_repos}}</p>
     <p class="important-info">Stars: {{userData.starredReposCount}}</p>
-    <table class="items-list">
+    <table class="table-default center">
         <tbody>
             <tr ng-repeat="repository in userData.repositoriesList" siv-repeat-end="anchorScroll()">
                 <td>

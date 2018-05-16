@@ -1,5 +1,7 @@
-import getInfoFromGithub from './_getInfoFromGithub';
+import repositoriesData from './_repositoriesData';
+import repositoriesSearch from './_repositoriesSearch';
 
 export default {
-    getInfoFromGithub,
+    repositoriesData,
+    repositoriesSearch,
 };

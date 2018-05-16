@@ -3,7 +3,6 @@ const onRepeatEnd = () => ({
     link(scope, element, attrs) {
         if (scope.$last) {
             scope.$eval(attrs.sivRepeatEnd);
-            console.log('ng-repeat');
         }
     },
 });

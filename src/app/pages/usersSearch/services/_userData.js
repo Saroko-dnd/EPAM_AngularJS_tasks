@@ -1,8 +1,7 @@
 class userDataService {
     /* @ngInject */
-    constructor($q, $http, apiToken, userDataCache, usersLink) {
+    constructor($q, $http, userDataCache, usersLink) {
         this.$http = $http;
-        this.apiToken = apiToken;
         this.cache = {};
         this.userDataCache = userDataCache;
         this.$q = $q;

@@ -1,0 +1,24 @@
+<table class="table-repos center">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <th class="description">Description</th>
+            <th>Language</th>
+            <th>Stars</th>
+        </tr>
+        <tr ng-repeat="repository in repositoriesData.items">
+            <td>
+                <p class="text" ng-bind="repository.name"></p>
+            </td>
+            <td class="description">
+                <p class="text" ng-bind="repository.description"></p>
+            </td>
+            <td>
+                <p class="text" ng-bind="repository.language"></p>
+            </td>
+            <td>
+                <p class="text" ng-bind="repository.stargazers_count"></p>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,6 @@
+<h2>on this page you can search and filter repositories</h2>
+<section>
+    <input ng-model="reposSearchKeyword" ng-keyup="$event.keyCode === keyCodes.enter && getRepositoriesInfo()" type="text" placeholder="enter any repository name">
+    <input ng-click="getRepositoriesInfo()" type="button" value="SEARCH">
+</section>
+<ui-view></ui-view>

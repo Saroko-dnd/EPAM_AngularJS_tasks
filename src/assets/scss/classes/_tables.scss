@@ -1,0 +1,69 @@
+@import "variables";
+
+.table {
+  &-default {
+    tr {
+      border: 1rem solid transparent;
+      * {
+        vertical-align: middle;
+      }
+    }
+
+    img {
+      width: 15rem;
+      height: 15rem;
+    }
+
+    a,
+    p {
+      font-size: 3rem;
+    }
+
+    p {
+      font-size: 5rem;
+      display: inline-block;
+      color: $color-lists;
+    }
+  }
+
+  &-repos {
+    tr {
+      border: 0;
+      * {
+        vertical-align: middle;
+      }
+    }
+
+    th {
+      border: 0.5rem solid $color-table-head-borders;
+      background-color: $color-repos-table-head-background;
+    }
+
+    td {
+      border: 0.5rem solid $color-table-body-borders;
+      background-color: $color-repos-table-body-background;
+    }
+
+    td,
+    th {
+      &.description {
+        width: 50rem;
+      }
+
+      &:not(.description) {
+        width: 12rem;
+      }
+
+      * {
+        font-size: 2.5rem;
+        display: inline-block;
+        color: $color-lists;
+      }
+    }
+
+    th {
+      color: $color-table-headers;
+      font-size: 5rem;
+    }
+  }
+}

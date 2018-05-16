@@ -4,14 +4,14 @@ import 'angular-ui-bootstrap';
 
 import './globalProviders';
 import './globalDirectives';
-import './pages/pages';
+import './pages';
 
 angular
     .module('testAngularApplication', [
+        'globalVariables',
         'globalCustomDirectives',
         'ui.bootstrap',
         'pages',
-        'globalVariables',
         'ui.router',
     ])
     .config((

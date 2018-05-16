@@ -1,7 +1,7 @@
-<article siv-infinite-scroll siv-on-scroll="loadFollowers()" id="followersPaging" class="user-info-container">
+<article siv-scroll-down="loadFollowers()" id="followersPaging" class="user-info-container">
     <h4 ng-click="anchorScroll()">List of followers</h4>
     <p class="important-info">Count: {{userData.followers}}</p>
-    <table class="items-list">
+    <table class="table-default center">
         <tbody>
             <tr ng-repeat="follower in userData.followersList" siv-repeat-end="anchorScroll()">
                 <td>

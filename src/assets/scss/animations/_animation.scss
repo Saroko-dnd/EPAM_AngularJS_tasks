@@ -1,0 +1,17 @@
+@import "variables";
+@import "mixins";
+
+@include keyframes(color-animation) {
+  from {
+    color: $color-animation-start;
+  }
+  to {
+    color: $color-animation-end;
+  }
+}
+
+.animation {
+  &-colors {
+    @include animation("color-animation 5s linear 2s infinite alternate");
+  }
+}
