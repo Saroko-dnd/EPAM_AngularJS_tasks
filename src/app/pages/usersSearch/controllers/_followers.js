@@ -8,11 +8,7 @@ const followers = (
     userDataService,
 ) => {
     let firstDataLoading = true;
-
-    console.log('Followers INIT');
-    console.log($stateParams.tabName);
-    console.log('state test');
-    console.log($state.includes('usersSearch.result.followersList'));
+    let loadingInProgress = false;
 
     $scope.loadFollowers = loadFollowers;
     $scope.itemsPerPage = 20;
@@ -24,7 +20,6 @@ const followers = (
     function anchorScroll() {
         if (firstDataLoading) {
             $anchorScroll();
-            console.log('followers anchorScroll');
             firstDataLoading = false;
         }
     }
@@ -58,28 +53,31 @@ const followers = (
     }
 
     function loadFollowers() {
-        console.log('loadFollowers');
-        const cachedFollowersData = userDataCache.getPageData(
-            'followers',
-            $scope.page,
-            $stateParams.login,
-        );
+        if (!loadingInProgress) {
+            const cachedFollowersData = userDataCache.getPageData(
+                'followers',
+                $scope.page,
+                $stateParams.login,
+            );
 
-        if (!cachedFollowersData) {
-            userDataService
-                .loadUserFollowers(
-                    $stateParams.login,
-                    $scope.page,
-                    $stateParams.itemsPerPage,
-                )
-                .then((data) => {
-                    $scope.userData.followersList.push(...data);
-                });
-        } else {
-            $scope.userData.followersList.push(...cachedFollowersData);
+            if (!cachedFollowersData) {
+                loadingInProgress = true;
+                userDataService
+                    .loadUserFollowers(
+                        $stateParams.login,
+                        $scope.page,
+                        $stateParams.itemsPerPage,
+                    )
+                    .then((data) => {
+                        $scope.userData.followersList.push(...data);
+                        loadingInProgress = false;
+                    });
+            } else {
+                $scope.userData.followersList.push(...cachedFollowersData);
+            }
+
+            $scope.page += 1;
         }
-
-        $scope.page += 1;
     }
 };
 

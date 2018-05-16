@@ -14,14 +14,8 @@ angular
         'pages',
         'ui.router',
     ])
-    .config((
-        /* $anchorScrollProvider */ $uiViewScrollProvider,
-        $httpProvider,
-        $locationProvider,
-        apiToken,
-    ) => {
+    .config(($uiViewScrollProvider, $httpProvider, $locationProvider, apiToken) => {
         $httpProvider.defaults.headers.common.Authorization = `token ${apiToken}`;
         $locationProvider.html5Mode(true);
-        // $anchorScrollProvider.disableAutoScrolling();
         $uiViewScrollProvider.useAnchorScroll();
     });

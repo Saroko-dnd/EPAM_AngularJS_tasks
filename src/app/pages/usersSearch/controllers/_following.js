@@ -8,8 +8,7 @@ const following = (
     userDataService,
 ) => {
     let firstDataLoading = true;
-    console.log('following INIT');
-    console.log($stateParams.tabName);
+    let loadingInProgress = false;
 
     $scope.loadFollowing = loadFollowing;
     $scope.itemsPerPage = 20;
@@ -48,35 +47,38 @@ const following = (
 
     function anchorScroll() {
         if (firstDataLoading) {
-            console.log('following anchorScroll');
             $anchorScroll();
             firstDataLoading = false;
         }
     }
 
     function loadFollowing() {
-        console.log('loadFollowing');
-        const cachedFollowingData = userDataCache.getPageData(
-            'following',
-            $scope.page,
-            $stateParams.login,
-        );
+        if (!loadingInProgress) {
+            const cachedFollowingData = userDataCache.getPageData(
+                'following',
+                $scope.page,
+                $stateParams.login,
+            );
 
-        if (!cachedFollowingData) {
-            userDataService
-                .loadUserFollowingList(
-                    $stateParams.login,
-                    $scope.page,
-                    $scope.itemsPerPage,
-                )
-                .then((data) => {
-                    $scope.userData.followingList.push(...data);
-                });
-        } else {
-            $scope.userData.followingList.push(...cachedFollowingData);
+            if (!cachedFollowingData) {
+                loadingInProgress = true;
+
+                userDataService
+                    .loadUserFollowingList(
+                        $stateParams.login,
+                        $scope.page,
+                        $scope.itemsPerPage,
+                    )
+                    .then((data) => {
+                        $scope.userData.followingList.push(...data);
+                        loadingInProgress = false;
+                    });
+            } else {
+                $scope.userData.followingList.push(...cachedFollowingData);
+            }
+
+            $scope.page += 1;
         }
-
-        $scope.page += 1;
     }
 };
 

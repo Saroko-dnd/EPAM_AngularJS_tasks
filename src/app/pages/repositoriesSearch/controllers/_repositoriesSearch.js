@@ -5,12 +5,9 @@ const repositoriesSearch = ($state, $scope, KeyCodes) => {
 
     init();
 
-    function init() {
-        console.log('repositoriesSearch INIT');
-    }
+    function init() {}
 
     function getRepositoriesInfo() {
-        console.log('getRepositoriesInfo');
         $state.go('repositoriesSearch.result', {
             keyword: $scope.reposSearchKeyword,
         });

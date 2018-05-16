@@ -4,10 +4,14 @@ import _ from 'lodash';
 const infiniteScroll = () => ({
     restrict: 'A',
     link(scope, element, attrs) {
-        const breakTime = 1000;
-        const throttledScrollEventHandler = _.throttle(
+        const breakTime = 250;
+        const throttledScrollEventHandler = _.debounce(
             scrollEventHandler,
             breakTime,
+            {
+                leading: true,
+                trailing: true,
+            },
         );
 
         window.addEventListener('scroll', throttledScrollEventHandler);

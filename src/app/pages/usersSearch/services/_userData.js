@@ -43,8 +43,6 @@ class userDataService {
     }
 
     loadUserFollowers(login, page, limit) {
-        console.log(`${this.usersLink +
-                login}/followers?page=${page}&per_page=${limit}`);
         return this.$http
             .get(`${this.usersLink +
                     login}/followers?page=${page}&per_page=${limit}`)

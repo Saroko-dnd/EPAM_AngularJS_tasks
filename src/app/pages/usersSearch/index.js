@@ -27,8 +27,6 @@ angular
                 url: '/followers',
                 templateUrl: './views/followers.html',
                 controller: controllers.followers,
-                /* onEnter: () => console.log('FOLLOWERS ENTER'),
-                onExit: event => console.log(event), */
             })
             .state({
                 name: 'usersSearch.result.followingList',

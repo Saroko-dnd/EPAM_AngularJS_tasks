@@ -8,7 +8,8 @@ const repositories = (
     userDataService,
 ) => {
     let firstDataLoading = true;
-    console.log('repositories INIT');
+    let loadingInProgress = false;
+
     $scope.loadRepositories = loadRepositories;
     $scope.itemsPerPage = 20;
     $scope.anchorScroll = anchorScroll;
@@ -47,35 +48,36 @@ const repositories = (
     function anchorScroll() {
         if (firstDataLoading) {
             $anchorScroll();
-            console.log('repositories anchorScroll');
             firstDataLoading = false;
         }
     }
 
     function loadRepositories() {
-        console.log('loadRepositories');
+        if (!loadingInProgress) {
+            const cachedRepositoriesData = userDataCache.getPageData(
+                'repositories',
+                $scope.page,
+                $stateParams.login,
+            );
 
-        const cachedRepositoriesData = userDataCache.getPageData(
-            'repositories',
-            $scope.page,
-            $stateParams.login,
-        );
+            if (!cachedRepositoriesData) {
+                loadingInProgress = true;
+                userDataService
+                    .loadListOfRepositories(
+                        $stateParams.login,
+                        $scope.page,
+                        $scope.itemsPerPage,
+                    )
+                    .then((data) => {
+                        $scope.userData.repositoriesList.push(...data);
+                        loadingInProgress = false;
+                    });
+            } else {
+                $scope.userData.repositoriesList.push(...cachedRepositoriesData);
+            }
 
-        if (!cachedRepositoriesData) {
-            userDataService
-                .loadListOfRepositories(
-                    $stateParams.login,
-                    $scope.page,
-                    $scope.itemsPerPage,
-                )
-                .then((data) => {
-                    $scope.userData.repositoriesList.push(...data);
-                });
-        } else {
-            $scope.userData.repositoriesList.push(...cachedRepositoriesData);
+            $scope.page += 1;
         }
-
-        $scope.page += 1;
     }
 };
 
