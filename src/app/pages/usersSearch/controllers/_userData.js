@@ -19,23 +19,11 @@ const userData = (
                 (newUserData) => {
                     $scope.userData = newUserData;
                     $scope.errorMessage = '';
-
-                    loadUserData();
                 },
                 (errorResponse) => {
                     $scope.userData = errorResponse.data;
                 },
             );
-        } else {
-            loadUserData();
-        }
-    }
-
-    function loadUserData(tabName = $stateParams.tabName) {
-        if ($scope.userData) {
-            $state.go(`usersSearch.result.${tabName}List`, {
-                '#': 'userDataTabs',
-            });
         }
     }
 };
