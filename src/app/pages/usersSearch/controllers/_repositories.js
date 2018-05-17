@@ -54,7 +54,6 @@ const repositories = (
 
     function loadRepositories() {
         if (!loadingInProgress) {
-            console.log('loadRepositories');
             const cachedRepositoriesData = userDataCache.getPageData(
                 'repositories',
                 $scope.page,

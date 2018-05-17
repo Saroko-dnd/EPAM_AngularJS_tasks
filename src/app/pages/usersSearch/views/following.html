@@ -5,13 +5,13 @@
         <tbody>
             <tr ng-repeat="user in userData.followingList" siv-repeat-end="anchorScroll()">
                 <td>
-                    <p class="text" ng-bind="user.login"></p>
+                    <p class="text" ng-bind="::user.login"></p>
                 </td>
                 <td>
-                    <img ng-src="{{user.avatar_url}}">
+                    <img ng-src="{{::user.avatar_url}}">
                 </td>
                 <td>
-                    <a ng-href="{{user.html_url}}" target="_blank">Profile link</a>
+                    <a ng-href="{{::user.html_url}}" target="_blank">Profile link</a>
                 </td>
             </tr>
         </tbody>

@@ -54,7 +54,6 @@ const followers = (
 
     function loadFollowers() {
         if (!loadingInProgress) {
-            console.log('loadFollowers');
             const cachedFollowersData = userDataCache.getPageData(
                 'followers',
                 $scope.page,

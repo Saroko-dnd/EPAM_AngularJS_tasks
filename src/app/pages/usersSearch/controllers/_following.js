@@ -54,7 +54,6 @@ const following = (
 
     function loadFollowing() {
         if (!loadingInProgress) {
-            console.log('loadFollowing');
             const cachedFollowingData = userDataCache.getPageData(
                 'following',
                 $scope.page,

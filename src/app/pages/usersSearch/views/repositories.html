@@ -6,7 +6,7 @@
         <tbody>
             <tr ng-repeat="repository in userData.repositoriesList" siv-repeat-end="anchorScroll()">
                 <td>
-                    <a ng-href="{{repository.html_url}}" target="_blank">{{repository.name}}</a>
+                    <a ng-href="{{::repository.html_url}}" target="_blank">{{repository.name}}</a>
                 </td>
             </tr>
         </tbody>
