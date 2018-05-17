@@ -22,7 +22,12 @@ class userDataService {
                 this.loadUserDataObject(login),
                 this.loadNumberOfStarredRepositories(login),
             ])
-            .then((dataArray) => {
+            .then(([userData, starredRepositories]) => {
+                userData.starredReposCount = starredRepositories;
+
+                return this.userDataCache.saveUser(userData.login, userData);
+            });
+        /* .then((dataArray) => {
                 let userData = null;
                 let starredRepositories = null;
 
@@ -30,7 +35,7 @@ class userDataService {
                 userData.starredReposCount = starredRepositories;
 
                 return this.userDataCache.saveUser(userData.login, userData);
-            });
+            }); */
     }
 
     loadUserDataObject(login) {
