@@ -1,11 +1,12 @@
 import _ from 'lodash';
 
 /* @ngInject */
-const infiniteScroll = () => ({
+const infiniteScroll = $document => ({
     restrict: 'A',
     link(scope, element, attrs) {
         const breakTime = 250;
-        const throttledScrollEventHandler = _.debounce(
+        const bottomDistance = 1000;
+        const smartScrollEventHandler = _.debounce(
             scrollEventHandler,
             breakTime,
             {
@@ -14,10 +15,12 @@ const infiniteScroll = () => ({
             },
         );
 
-        window.addEventListener('scroll', throttledScrollEventHandler);
+        $document.on('scroll', smartScrollEventHandler);
+        // window.addEventListener('scroll', smartScrollEventHandler);
 
         element.on('$destroy', () => {
-            window.removeEventListener('scroll', throttledScrollEventHandler);
+            $document.off('scroll', smartScrollEventHandler);
+            // window.removeEventListener('scroll', smartScrollEventHandler);
         });
 
         function scrollEventHandler() {
@@ -25,7 +28,6 @@ const infiniteScroll = () => ({
             const documentClientHeight = document.documentElement.clientHeight;
             const documentScrollTop =
                 document.body.scrollTop || document.documentElement.scrollTop;
-            const bottomDistance = 1000;
 
             if (
                 documentScrollHeight <
