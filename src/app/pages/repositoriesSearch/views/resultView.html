@@ -2,7 +2,7 @@
 <div ng-if="repositoriesData">
     <h4>list of found repositories</h4>
     <p class="important-info">Count: {{repositoriesData.total_count}}</p>
-    <table siv-scroll-down="loadRepositories()" class="table-repos center">
+    <table siv-infinite-scroll siv-infinite-scroll-callback="loadRepositories()" siv-infinite-scroll-bottom-distance="2000" class="table-repos center">
         <tbody>
             <tr>
                 <th>Name (link)</th>

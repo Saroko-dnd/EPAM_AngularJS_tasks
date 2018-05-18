@@ -6,4 +6,4 @@ import infiniteScroll from './infiniteScroll';
 angular
     .module('globalCustomDirectives', [])
     .directive('sivRepeatEnd', onRepeatEnd)
-    .directive('sivScrollDown', infiniteScroll);
+    .directive('sivInfiniteScroll', infiniteScroll);

@@ -1,4 +1,5 @@
-<article siv-scroll-down="loadFollowers()" id="followersPaging" class="user-info-container">
+<article siv-infinite-scroll siv-infinite-scroll-callback="loadFollowers()" siv-infinite-scroll-bottom-distance="1000" id="followersPaging"
+    class="user-info-container">
     <h4>List of followers</h4>
     <p class="important-info">Count: {{userData.followers}}</p>
     <table class="table-default center">

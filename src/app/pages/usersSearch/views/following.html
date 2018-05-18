@@ -1,4 +1,4 @@
-<article siv-scroll-down="loadFollowing()" class="user-info-container">
+<article siv-infinite-scroll siv-infinite-scroll-callback="loadFollowing()" siv-infinite-scroll-bottom-distance="1000" class="user-info-container">
     <h4>Following list</h4>
     <p class="important-info">Count: {{userData.following}}</p>
     <table class="table-default center">

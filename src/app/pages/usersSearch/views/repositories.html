@@ -1,4 +1,5 @@
-<article siv-scroll-down="loadRepositories()" class="user-info-container">
+<article siv-infinite-scroll siv-infinite-scroll-callback="loadRepositories()" siv-infinite-scroll-bottom-distance="1000"
+    class="user-info-container">
     <h4>Repositories</h4>
     <p class="important-info">Count: {{userData.public_repos}}</p>
     <p class="important-info">Stars: {{userData.starredReposCount}}</p>
