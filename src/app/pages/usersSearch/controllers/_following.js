@@ -18,31 +18,18 @@ const following = (
     init();
 
     function init() {
-        if ($stateParams.userData) {
-            $scope.userData = $stateParams.userData;
-            $scope.userData.followingList = [];
-        } else {
-            $scope.userData = userDataCache.getUserData($stateParams.login);
-
-            if (!$scope.userData) {
-                userDataService.loadUserData($stateParams.login).then(
-                    (newUserData) => {
-                        $scope.userData = newUserData;
-                        $scope.errorMessage = '';
-                        $scope.userData.followingList = [];
-
-                        loadFollowing();
-                    },
-                    (errorResponse) => {
-                        $scope.userData = errorResponse.data;
-                    },
-                );
-            } else {
+        userDataService.loadUserData($stateParams.login).then(
+            (newUserData) => {
+                $scope.userData = newUserData;
+                $scope.errorMessage = '';
                 $scope.userData.followingList = [];
 
                 loadFollowing();
-            }
-        }
+            },
+            (errorResponse) => {
+                $scope.userData = errorResponse.data;
+            },
+        );
     }
 
     function anchorScroll() {
@@ -54,28 +41,18 @@ const following = (
 
     function loadFollowing() {
         if (!loadingInProgress) {
-            const cachedFollowingData = userDataCache.getPageData(
-                'following',
-                $scope.page,
-                $stateParams.login,
-            );
+            loadingInProgress = true;
 
-            if (!cachedFollowingData) {
-                loadingInProgress = true;
-
-                userDataService
-                    .loadUserFollowingList(
-                        $stateParams.login,
-                        $scope.page,
-                        $scope.itemsPerPage,
-                    )
-                    .then((data) => {
-                        $scope.userData.followingList.push(...data);
-                        loadingInProgress = false;
-                    });
-            } else {
-                $scope.userData.followingList.push(...cachedFollowingData);
-            }
+            userDataService
+                .loadUserFollowingList(
+                    $stateParams.login,
+                    $scope.page,
+                    $scope.itemsPerPage,
+                )
+                .then((data) => {
+                    $scope.userData.followingList.push(...data);
+                    loadingInProgress = false;
+                });
 
             $scope.page += 1;
         }

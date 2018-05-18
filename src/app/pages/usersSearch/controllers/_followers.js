@@ -25,56 +25,33 @@ const followers = (
     }
 
     function init() {
-        if ($stateParams.userData) {
-            $scope.userData = $stateParams.userData;
-            $scope.userData.followersList = [];
-        } else {
-            $scope.userData = userDataCache.getUserData($stateParams.login);
-
-            if (!$scope.userData) {
-                userDataService.loadUserData($stateParams.login).then(
-                    (newUserData) => {
-                        $scope.userData = newUserData;
-                        $scope.errorMessage = '';
-                        $scope.userData.followersList = [];
-
-                        loadFollowers();
-                    },
-                    (errorResponse) => {
-                        $scope.userData = errorResponse.data;
-                    },
-                );
-            } else {
+        userDataService.loadUserData($stateParams.login).then(
+            (newUserData) => {
+                $scope.userData = newUserData;
+                $scope.errorMessage = '';
                 $scope.userData.followersList = [];
 
                 loadFollowers();
-            }
-        }
+            },
+            (errorResponse) => {
+                $scope.userData = errorResponse.data;
+            },
+        );
     }
 
     function loadFollowers() {
         if (!loadingInProgress) {
-            const cachedFollowersData = userDataCache.getPageData(
-                'followers',
-                $scope.page,
-                $stateParams.login,
-            );
-
-            if (!cachedFollowersData) {
-                loadingInProgress = true;
-                userDataService
-                    .loadUserFollowers(
-                        $stateParams.login,
-                        $scope.page,
-                        $stateParams.itemsPerPage,
-                    )
-                    .then((data) => {
-                        $scope.userData.followersList.push(...data);
-                        loadingInProgress = false;
-                    });
-            } else {
-                $scope.userData.followersList.push(...cachedFollowersData);
-            }
+            loadingInProgress = true;
+            userDataService
+                .loadUserFollowers(
+                    $stateParams.login,
+                    $scope.page,
+                    $stateParams.itemsPerPage,
+                )
+                .then((data) => {
+                    $scope.userData.followersList.push(...data);
+                    loadingInProgress = false;
+                });
 
             $scope.page += 1;
         }

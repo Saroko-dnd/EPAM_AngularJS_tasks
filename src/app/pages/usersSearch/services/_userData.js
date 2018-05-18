@@ -17,25 +17,25 @@ class userDataService {
     }
 
     loadUserData(login) {
+        const userData = this.userDataCache.getUserData(login);
+
+        if (userData) {
+            return this.$q.resolve(userData);
+        }
+
         return this.$q
             .all([
                 this.loadUserDataObject(login),
                 this.loadNumberOfStarredRepositories(login),
             ])
-            .then(([userData, starredRepositories]) => {
-                userData.starredReposCount = starredRepositories;
+            .then(([newUserData, starredRepositories]) => {
+                newUserData.starredReposCount = starredRepositories;
 
-                return this.userDataCache.saveUser(userData.login, userData);
+                return this.userDataCache.saveUser(
+                    newUserData.login,
+                    newUserData,
+                );
             });
-        /* .then((dataArray) => {
-                let userData = null;
-                let starredRepositories = null;
-
-                [userData, starredRepositories] = dataArray;
-                userData.starredReposCount = starredRepositories;
-
-                return this.userDataCache.saveUser(userData.login, userData);
-            }); */
     }
 
     loadUserDataObject(login) {
@@ -48,6 +48,16 @@ class userDataService {
     }
 
     loadUserFollowers(login, page, limit) {
+        const cachedFollowersData = this.userDataCache.getPageData(
+            'followers',
+            page,
+            login,
+        );
+
+        if (cachedFollowersData) {
+            return this.$q.resolve(cachedFollowersData);
+        }
+
         return this.$http
             .get(`${this.usersLink +
                     login}/followers?page=${page}&per_page=${limit}`)
@@ -64,6 +74,16 @@ class userDataService {
     }
 
     loadUserFollowingList(login, page, limit) {
+        const cachedFollowingData = this.userDataCache.getPageData(
+            'following',
+            page,
+            login,
+        );
+
+        if (cachedFollowingData) {
+            return this.$q.resolve(cachedFollowingData);
+        }
+
         return this.$http
             .get(`${this.usersLink +
                     login}/following?page=${page}&per_page=${limit}`)
@@ -106,6 +126,16 @@ class userDataService {
     }
 
     loadListOfRepositories(login, page, limit) {
+        const cachedRepositoriesData = this.userDataCache.getPageData(
+            'repositories',
+            page,
+            login,
+        );
+
+        if (cachedRepositoriesData) {
+            return this.$q.resolve(cachedRepositoriesData);
+        }
+
         return this.$http
             .get(`${this.usersLink +
                     login}/repos?page=${page}&per_page=${limit}`)
