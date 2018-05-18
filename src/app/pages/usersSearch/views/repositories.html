@@ -1,0 +1,16 @@
+<article siv-scroll-down="loadRepositories()" class="user-info-container">
+    <h4>Repositories</h4>
+    <p class="important-info">Count: {{userData.public_repos}}</p>
+    <p class="important-info">Stars: {{userData.starredReposCount}}</p>
+    <table class="table-default center">
+        <tbody>
+            <tr ng-repeat="repository in userData.repositoriesList" siv-repeat-end="anchorScroll()">
+                <td>
+                    <a ng-href="{{::repository.html_url}}" target="_blank">{{repository.name}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<ul uib-pagination total-items="userData.public_repos" ng-model="userData.repositoriesPage" items-per-page="pagination.itemsPerPage"
+        ng-change="pageChanged()" class="pagination-sm" max-size="pagination.pagesLimit" boundary-links="true" force-ellipses="true"></ul>-->
+</article>

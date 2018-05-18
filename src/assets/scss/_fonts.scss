@@ -1,3 +1,11 @@
 @import "mixins";
 
 @include font-face(Starjedi, "../fonts/Starjedi", null, null, ttf);
+@include font-face(MetalLord, "../fonts/METALORD", null, null, ttf);
+@include font-face(
+  AbandonAlphabeta,
+  "../fonts/Abandon Alphabeta",
+  null,
+  null,
+  ttf
+);

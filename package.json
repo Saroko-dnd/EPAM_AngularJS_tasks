@@ -8,7 +8,8 @@
         "dev": "webpack --mode development ./src/index.js --output ./dist/main.js",
         "build": "webpack --mode production ./src/index.js --output ./dist/main.js",
         "watch": "webpack --watch",
-        "start": "webpack-dev-server --open --mode development"
+        "start": "webpack-dev-server --open Chrome --mode development",
+        "startOpt": "webpack-dev-server --open Chrome --mode production"
     },
     "keywords": [],
     "author": "Ihar Saroka (Junior Software Engineer in EPAM)",
@@ -18,6 +19,7 @@
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.3",
         "babel-loader": "^7.1.4",
+        "babel-plugin-angularjs-annotate": "^0.8.2",
         "babel-preset-env": "^1.6.1",
         "css-loader": "^0.28.11",
         "eslint": "^4.19.1",
@@ -41,6 +43,11 @@
     "dependencies": {
         "@uirouter/angularjs": "^1.0.15",
         "angular": "^1.6.9",
-        "angular-ui-bootstrap": "^2.5.6"
+        "angular-ui-bootstrap": "^2.5.6",
+        "babel-polyfill": "^6.26.0",
+        "bootstrap": "^4.1.1",
+        "lodash": "^4.17.10",
+        "ui-router-core": "^5.0.0",
+        "ui-router-sticky-states": "^1.2.0"
     }
 }

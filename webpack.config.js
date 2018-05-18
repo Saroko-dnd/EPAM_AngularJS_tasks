@@ -5,8 +5,13 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    entry: ['babel-polyfill', './src/index.js'],
     devServer: {
         contentBase: './dist',
+        open: true,
+        historyApiFallback: {
+            index: 'index.html',
+        },
     },
     optimization: {
         minimizer: [
@@ -86,4 +91,5 @@ module.exports = {
             filename: './index.html',
         }),
     ],
+    watch: false,
 };

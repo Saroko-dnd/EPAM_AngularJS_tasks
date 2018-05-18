@@ -1,0 +1,21 @@
+<article siv-scroll-down="loadFollowers()" id="followersPaging" class="user-info-container">
+    <h4>List of followers</h4>
+    <p class="important-info">Count: {{userData.followers}}</p>
+    <table class="table-default center">
+        <tbody>
+            <tr ng-repeat="follower in userData.followersList" siv-repeat-end="anchorScroll()">
+                <td>
+                    <p class="text" ng-bind="::follower.login"></p>
+                </td>
+                <td>
+                    <img ng-src="{{::follower.avatar_url}}">
+                </td>
+                <td>
+                    <a ng-href="{{::follower.html_url}}" target="_blank">Profile link</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<ul uib-pagination total-items="userData.followers" ng-model="userData.followersPage" items-per-page="pagination.itemsPerPage"
+        ng-change="pageChanged()" class="pagination-sm" max-size="pagination.pagesLimit" boundary-links="true" force-ellipses="true"></ul>-->
+</article>

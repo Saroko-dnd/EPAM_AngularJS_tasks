@@ -1,0 +1,17 @@
+<p ng-bind="userData.message" class="error-message"></p>
+<div ng-if="userData.login">
+    <h3>username: {{userData.name}}</h3>
+    <img ng-src="{{userData.avatar_url}}">
+    <uib-tabset id="userDataTabs" type="pills" justified="true" active="activeTab" class="sticky">
+        <uib-tab heading="Followers" ui-sref=".followersList({'#': 'userDataTabs'})" class="{{$state.includes('usersSearch.result.followersList') ? 'active' : ''}}"
+            index="0">
+        </uib-tab>
+        <uib-tab heading="Following" ui-sref=".followingList({'#': 'userDataTabs'})" class="{{$state.includes('usersSearch.result.followingList') ? 'active' : ''}}"
+            index="1">
+        </uib-tab>
+        <uib-tab heading="Repositories" ui-sref=".repositoriesList({'#': 'userDataTabs'})" class="{{$state.includes('usersSearch.result.repositoriesList') ? 'active' : ''}}"
+            index="2">
+        </uib-tab>
+    </uib-tabset>
+    <div ui-view autoscroll></div>
+</div>

@@ -1,0 +1,9 @@
+<div>
+    <h2>on this page you can get public info about any github user</h2>
+    <section>
+        <input ng-model="login" ng-keyup="$event.keyCode === KeyCodes.enter && getUserInfo()" type="text" placeholder="enter any github login">
+        <input ng-click="getUserInfo()" type="button" value="SEARCH">
+    </section>
+    <main ui-view autoscroll></main>
+    <!-- <a  href="https://github.com/login/oauth/authorize?client_id={{client_id}}">try OAuth</a> -->
+</div>

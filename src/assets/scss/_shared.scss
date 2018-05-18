@@ -1,0 +1,105 @@
+html {
+  font-size: 10px;
+}
+
+* {
+  text-align: center;
+}
+
+body {
+  background: url("../img/space.jpg");
+}
+
+h1 {
+  font-family: $font-headers;
+  color: $color-main-headers;
+  font-size: 10rem;
+}
+
+main {
+  h1,
+  h2,
+  h3,
+  h4,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-headers;
+    color: $color-page-subheaders;
+    font-size: 5rem;
+  }
+
+  section {
+    h1,
+    h2,
+    h3,
+    h4,
+    h4,
+    h5,
+    h6 {
+      font-family: $font-headers;
+      color: $color-page-mini-headers;
+      font-size: 5rem;
+    }
+  }
+}
+
+a {
+  font-family: $font-links;
+  color: $color-links;
+  font-size: 5rem;
+  text-decoration: underline;
+}
+
+input {
+  font-size: 3rem;
+  color: $color-inputs;
+}
+
+nav a {
+  margin: 0 30px;
+}
+
+a.active {
+  font-size: 10rem;
+}
+
+p {
+  font-family: $font-usual-text;
+  color: $color-paragraph;
+  font-size: 2rem;
+}
+
+.text {
+  font-family: $font-usual-text;
+}
+
+.small-blue-square {
+  @include square(150px, rgb(0, 0, 255));
+}
+
+.big-red-square {
+  @include square(300px, rgb(255, 0, 0));
+}
+
+.error-message {
+  color: $color-error;
+  font-size: 3rem;
+  font-family: AbandonAlphabeta;
+}
+
+.important-info {
+  font-family: MetalLord;
+  font-size: 4rem;
+  font-weight: bold;
+  color: $color-info;
+}
+
+.sticky {
+  position: sticky;
+  top: 0px;
+}
+
+button {
+  font-size: 5rem;
+}
