@@ -11,10 +11,11 @@ const repositoriesData = (
         repositoriesDataService.loadRepositoriesData($stateParams.keyword).then(
             (newRepositoriesData) => {
                 $scope.repositoriesData = newRepositoriesData;
+                console.log($scope.repositoriesData);
                 $scope.errorMessage = '';
             },
             (errorResponse) => {
-                $scope.repositoriesData = errorResponse;
+                $scope.errorMessage = errorResponse.message;
             },
         );
     }
