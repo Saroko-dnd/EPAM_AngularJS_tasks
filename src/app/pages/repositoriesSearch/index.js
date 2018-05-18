@@ -2,10 +2,12 @@ import angular from 'angular';
 import '@uirouter/angularjs';
 import controllers from './controllers';
 import services from './services';
+import './providers';
 
 angular
-    .module('page.repositoriesSearch', [])
+    .module('page.repositoriesSearch', ['repositoriesSearchVariables'])
     .service('repositoriesDataService', services.repositoriesDataService)
+    .service('repositoriesDataCache', services.repositoriesDataCache)
     .config(($stateProvider) => {
         $stateProvider
             .state({

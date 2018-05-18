@@ -5,14 +5,14 @@
     <table class="table-repos center">
         <tbody>
             <tr>
-                <th>Name</th>
+                <th>Name (link)</th>
                 <th class="description">Description</th>
                 <th>Language</th>
                 <th>Stars</th>
             </tr>
             <tr ng-repeat="repository in repositoriesData.items">
                 <td>
-                    <p class="text" ng-bind="::repository.name"></p>
+                    <a ng-href="{{::repository.html_url}}" target="_blank">{{::repository.name}}</a>
                 </td>
                 <td class="description">
                     <p class="text" ng-bind="::repository.description"></p>
@@ -21,6 +21,7 @@
                     <p class="text" ng-bind="::repository.language"></p>
                 </td>
                 <td>
+                    <i class="fa fa-star"></i>
                     <p class="text" ng-bind="::repository.stargazers_count"></p>
                 </td>
             </tr>
