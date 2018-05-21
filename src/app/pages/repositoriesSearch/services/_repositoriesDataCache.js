@@ -6,17 +6,17 @@ class repositoriesDataCache {
         });
     }
 
-    saveRepositories(keyword, page, repositoriesData) {
+    saveRepositories(keyword, page, sort, order, repositoriesData) {
         this.repositoriesDataCache.put(
-            (keyword + page).toLowerCase(),
+            (keyword + page + sort + order).toLowerCase(),
             repositoriesData,
         );
 
         return repositoriesData;
     }
 
-    getRepositoriesData(keyword, page) {
-        return this.repositoriesDataCache.get((keyword + page).toLowerCase());
+    getRepositoriesData(keyword, page, sort, order) {
+        return this.repositoriesDataCache.get((keyword + page + sort + order).toLowerCase());
     }
 }
 

@@ -6,10 +6,12 @@ class repositoriesData {
         this.repositoriesDataCache = repositoriesDataCache;
     }
 
-    loadRepositoriesData(keyword, page, limit, sortOptions) {
+    loadRepositoriesData(keyword, page, limit, sort, order) {
         const repositoriesCachedData = this.repositoriesDataCache.getRepositoriesData(
             keyword,
             page,
+            sort,
+            order,
         );
 
         if (repositoriesCachedData) {
@@ -17,13 +19,15 @@ class repositoriesData {
         }
 
         return this.$http
-            .get(`https://api.github.com/search/repositories?q=${keyword}&page=${page}&per_page=${limit}&sort=${sortOptions.sort ||
-                    ''}&order=${sortOptions.order || ''}`)
+            .get(`https://api.github.com/search/repositories?q=${keyword}&page=${page}&per_page=${limit}&sort=${sort ||
+                    ''}&order=${order || ''}`)
             .then(
                 response =>
                     this.repositoriesDataCache.saveRepositories(
                         keyword,
                         page,
+                        sort,
+                        order,
                         response.data,
                     ),
                 response => this.$q.reject(response.data),

@@ -15,7 +15,8 @@ const repositoriesSearch = (
     function getRepositoriesInfo() {
         $state.go('repositoriesSearch.result', {
             keyword: $scope.reposSearchKeyword,
-            sortOptions: reposSortConfigs[$scope.selectedSortOption],
+            order: reposSortConfigs[$scope.selectedSortOption].order,
+            sort: reposSortConfigs[$scope.selectedSortOption].sort,
         });
     }
 };

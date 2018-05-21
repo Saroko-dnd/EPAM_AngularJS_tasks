@@ -19,7 +19,8 @@ const repositoriesData = (
                 $stateParams.keyword,
                 1,
                 repositoriesPerPage,
-                $stateParams.sortOptions,
+                $stateParams.sort,
+                $stateParams.order,
             )
             .then(
                 (newRepositoriesData) => {
@@ -43,7 +44,8 @@ const repositoriesData = (
                     $stateParams.keyword,
                     page,
                     repositoriesPerPage,
-                    $stateParams.sortOptions,
+                    $stateParams.sort,
+                    $stateParams.order,
                 )
                 .then((newRepositoriesData) => {
                     $scope.repositoriesData.items.push(...newRepositoriesData.items);
