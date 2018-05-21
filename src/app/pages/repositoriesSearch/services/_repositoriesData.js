@@ -6,7 +6,7 @@ class repositoriesData {
         this.repositoriesDataCache = repositoriesDataCache;
     }
 
-    loadRepositoriesData(keyword, page, limit) {
+    loadRepositoriesData(keyword, page, limit, sortOptions) {
         const repositoriesCachedData = this.repositoriesDataCache.getRepositoriesData(
             keyword,
             page,
@@ -17,7 +17,8 @@ class repositoriesData {
         }
 
         return this.$http
-            .get(`https://api.github.com/search/repositories?q=${keyword}&page=${page}&per_page=${limit}`)
+            .get(`https://api.github.com/search/repositories?q=${keyword}&page=${page}&per_page=${limit}&sort=${sortOptions.sort ||
+                    ''}&order=${sortOptions.order || ''}`)
             .then(
                 response =>
                     this.repositoriesDataCache.saveRepositories(

@@ -2,5 +2,8 @@
 <section>
     <input ng-model="reposSearchKeyword" ng-keyup="$event.keyCode === keyCodes.enter && getRepositoriesInfo()" type="text" placeholder="enter any repository name">
     <input ng-click="getRepositoriesInfo()" type="button" value="SEARCH">
+    <label class="options-selector">Sort options:
+        <select ng-model="selectedSortOption" ng-options="option as option for option in sortOptions"></select>
+    </label>
 </section>
 <ui-view></ui-view>

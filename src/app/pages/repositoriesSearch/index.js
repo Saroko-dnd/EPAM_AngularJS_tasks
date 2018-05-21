@@ -19,6 +19,9 @@ angular
             .state({
                 name: 'repositoriesSearch.result',
                 url: '/:keyword',
+                params: {
+                    sortOptions: null,
+                },
                 templateUrl: './views/resultView.html',
                 controller: controllers.repositoriesData,
             });

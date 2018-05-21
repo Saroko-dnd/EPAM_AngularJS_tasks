@@ -1,15 +1,21 @@
 /* @ngInject */
-const repositoriesSearch = ($state, $scope, KeyCodes) => {
+const repositoriesSearch = (
+    $state,
+    $scope,
+    KeyCodes,
+    reposSortOptions,
+    reposSortConfigs,
+) => {
     $scope.getRepositoriesInfo = getRepositoriesInfo;
     $scope.keyCodes = KeyCodes;
 
-    init();
-
-    function init() {}
+    $scope.sortOptions = reposSortOptions;
+    [$scope.selectedSortOption] = reposSortOptions;
 
     function getRepositoriesInfo() {
         $state.go('repositoriesSearch.result', {
             keyword: $scope.reposSearchKeyword,
+            sortOptions: reposSortConfigs[$scope.selectedSortOption],
         });
     }
 };

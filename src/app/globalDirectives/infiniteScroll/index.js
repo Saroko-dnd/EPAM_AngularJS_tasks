@@ -14,7 +14,7 @@ const infiniteScroll = $document => ({
                 trailing: true,
             },
         );
-        console.log('infiniteScroll LINK');
+
         $document.on('scroll', smartScrollEventHandler);
         // window.addEventListener('scroll', smartScrollEventHandler);
 
@@ -28,7 +28,7 @@ const infiniteScroll = $document => ({
             const documentClientHeight = document.documentElement.clientHeight;
             const documentScrollTop =
                 document.body.scrollTop || document.documentElement.scrollTop;
-            console.log('scrollEventHandler');
+
             if (
                 documentScrollHeight <
                 documentClientHeight + documentScrollTop + bottomDistance

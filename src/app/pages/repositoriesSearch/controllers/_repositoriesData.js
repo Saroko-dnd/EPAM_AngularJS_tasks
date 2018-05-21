@@ -6,7 +6,7 @@ const repositoriesData = (
     repositoriesDataService,
 ) => {
     const repositoriesPerPage = 100;
-    let currentRepositoriesPage = 1;
+    let currentRepositoriesPage = 2;
     let loadingInProgress = true;
 
     $scope.loadRepositories = loadRepositories;
@@ -15,7 +15,12 @@ const repositoriesData = (
 
     function init() {
         repositoriesDataService
-            .loadRepositoriesData($stateParams.keyword, 0, repositoriesPerPage)
+            .loadRepositoriesData(
+                $stateParams.keyword,
+                1,
+                repositoriesPerPage,
+                $stateParams.sortOptions,
+            )
             .then(
                 (newRepositoriesData) => {
                     $scope.repositoriesData = newRepositoriesData;
@@ -38,6 +43,7 @@ const repositoriesData = (
                     $stateParams.keyword,
                     page,
                     repositoriesPerPage,
+                    $stateParams.sortOptions,
                 )
                 .then((newRepositoriesData) => {
                     $scope.repositoriesData.items.push(...newRepositoriesData.items);
