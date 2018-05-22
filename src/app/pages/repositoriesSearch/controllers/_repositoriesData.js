@@ -9,6 +9,7 @@ const repositoriesData = (
     let currentRepositoriesPage = 2;
     let loadingInProgress = true;
 
+    $scope.Date = Date;
     $scope.loadRepositories = loadRepositories;
 
     init();

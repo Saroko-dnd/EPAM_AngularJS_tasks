@@ -5,24 +5,30 @@
     <table siv-infinite-scroll siv-infinite-scroll-callback="loadRepositories()" siv-infinite-scroll-bottom-distance="2000" class="table-repos center">
         <tbody>
             <tr>
-                <th>Name (link)</th>
-                <th class="description">Description</th>
-                <th>Language</th>
-                <th>Stars</th>
+                <th class="medium-data">Name (link)</th>
+                <th class="big-data">Description</th>
+                <th class="medium-data">Language</th>
+                <th class="small-data">Stars</th>
+                <th class="small-data">Forks</th>
             </tr>
             <tr ng-repeat="repository in repositoriesData.items">
-                <td>
+                <td class="medium-data">
                     <a ng-href="{{::repository.html_url}}" target="_blank">{{::repository.name}}</a>
+                    <p class="text">Last update: {{::Date.parse(repository.updated_at) | date:'MMM d, y h:mm:ss a'}}</p>
                 </td>
-                <td class="description">
+                <td class="big-data">
                     <p class="text" ng-bind="::repository.description"></p>
                 </td>
-                <td>
+                <td class="medium-data">
                     <p class="text" ng-bind="::repository.language"></p>
                 </td>
-                <td>
+                <td class="small-data">
                     <i class="fa fa-star"></i>
                     <p class="text" ng-bind="::repository.stargazers_count"></p>
+                </td>
+                <td class="small-data">
+                    <i class="fa fa-code-fork"></i>
+                    <p class="text" ng-bind="::repository.forks"></p>
                 </td>
             </tr>
         </tbody>
