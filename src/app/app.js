@@ -4,10 +4,12 @@ import 'angular-ui-bootstrap';
 
 import './globalProviders';
 import './globalDirectives';
+import './sharedComponents';
 import './pages';
 
 angular
     .module('testAngularApplication', [
+        'sharedAppComponents',
         'globalVariables',
         'globalCustomDirectives',
         'ui.bootstrap',
