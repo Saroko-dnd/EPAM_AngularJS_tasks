@@ -6,54 +6,48 @@ const repositoriesData = (
     repositoriesDataService,
 ) => {
     const repositoriesPerPage = 100;
-    let currentRepositoriesPage = 2;
-    let loadingInProgress = true;
+    let currentRepositoriesPage = 1;
+    let loadingInProgress = false;
 
     $scope.Date = Date;
     $scope.loadRepositories = loadRepositories;
 
     init();
-
+    console.log('repositoriesData init');
     function init() {
-        repositoriesDataService
-            .loadRepositoriesData(
-                $stateParams.keyword,
-                1,
-                repositoriesPerPage,
-                $stateParams.sort,
-                $stateParams.order,
-            )
-            .then(
-                (newRepositoriesData) => {
-                    $scope.repositoriesData = newRepositoriesData;
-                    $scope.errorMessage = '';
-                    loadingInProgress = false;
-                },
-                (errorResponse) => {
-                    $scope.errorMessage = errorResponse.message;
-                    loadingInProgress = false;
-                },
-            );
+        loadRepositories();
     }
 
-    function loadRepositories(page = currentRepositoriesPage) {
+    function loadRepositories() {
+        console.log('repositoriesData loading');
         if (!loadingInProgress) {
             loadingInProgress = true;
 
             repositoriesDataService
                 .loadRepositoriesData(
                     $stateParams.keyword,
-                    page,
+                    currentRepositoriesPage,
                     repositoriesPerPage,
                     $stateParams.sort,
                     $stateParams.order,
                 )
-                .then((newRepositoriesData) => {
-                    $scope.repositoriesData.items.push(...newRepositoriesData.items);
-                    loadingInProgress = false;
-                });
+                .then(
+                    (newRepositoriesData) => {
+                        if (!$scope.repositoriesData) {
+                            $scope.repositoriesData = newRepositoriesData;
+                        } else {
+                            $scope.repositoriesData.items.push(...newRepositoriesData.items);
+                        }
+                        $scope.errorMessage = '';
+                        loadingInProgress = false;
 
-            currentRepositoriesPage += 1;
+                        currentRepositoriesPage += 1;
+                    },
+                    (errorResponse) => {
+                        $scope.errorMessage = errorResponse.message;
+                        loadingInProgress = false;
+                    },
+                );
         }
     }
 };
