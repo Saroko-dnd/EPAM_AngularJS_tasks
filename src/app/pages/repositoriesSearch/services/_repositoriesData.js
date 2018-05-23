@@ -1,9 +1,10 @@
 class repositoriesData {
     /* @ngInject */
-    constructor($q, $http, repositoriesDataCache) {
+    constructor($q, $http, repositoriesDataCache, linkToRepositories) {
         this.$http = $http;
         this.$q = $q;
         this.repositoriesDataCache = repositoriesDataCache;
+        this.linkToRepositories = linkToRepositories;
     }
 
     loadRepositoriesData(keyword, page, limit, sort, order) {
@@ -19,7 +20,9 @@ class repositoriesData {
         }
 
         return this.$http
-            .get(`https://api.github.com/search/repositories?q=${keyword}&page=${page}&per_page=${limit}&sort=${sort ||
+            .get(`${
+                this.linkToRepositories
+            }?q=${keyword}&page=${page}&per_page=${limit}&sort=${sort ||
                     ''}&order=${order || ''}`)
             .then(
                 response =>

@@ -3,6 +3,10 @@ import angular from 'angular';
 angular
     .module('repositoriesSearchVariables', [])
     .constant('repositoriesDataCacheID', 'repositoriesDataCacheID')
+    .constant(
+        'linkToRepositories',
+        'https://api.github.com/search/repositories',
+    )
     .constant('reposSortOptions', [
         'Best match',
         'Most stars',

@@ -13,13 +13,12 @@ const repositoriesData = (
     $scope.loadRepositories = loadRepositories;
 
     init();
-    console.log('repositoriesData init');
+
     function init() {
         loadRepositories();
     }
 
     function loadRepositories() {
-        console.log('repositoriesData loading');
         if (!loadingInProgress) {
             loadingInProgress = true;
 
