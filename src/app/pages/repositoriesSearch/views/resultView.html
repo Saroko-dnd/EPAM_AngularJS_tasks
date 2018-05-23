@@ -5,11 +5,11 @@
     <table siv-infinite-scroll siv-infinite-scroll-callback="loadRepositories()" siv-infinite-scroll-bottom-distance="2000" class="table-repos center">
         <tbody>
             <tr>
-                <th class="medium-data">Name (link)</th>
-                <th class="big-data">Description</th>
-                <th class="medium-data">Language</th>
-                <th class="small-data">Stars</th>
-                <th class="small-data">Forks</th>
+                <th class="medium-data sticky">Name (link)</th>
+                <th class="big-data sticky">Description</th>
+                <th class="medium-data sticky">Language</th>
+                <th class="small-data sticky">Stars</th>
+                <th class="small-data sticky">Forks</th>
             </tr>
             <tr ng-repeat="repository in repositoriesData.items">
                 <td class="medium-data">

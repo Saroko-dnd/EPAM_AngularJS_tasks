@@ -22,7 +22,7 @@ angular
                 templateUrl: './views/resultView.html',
                 controller: controllers.userData,
             })
-            .state({
+            /* .state({
                 name: 'usersSearch.result.followersList',
                 url: '/followers',
                 templateUrl: './views/followers.html',
@@ -39,5 +39,10 @@ angular
                 url: '/repositories',
                 templateUrl: './views/repositories.html',
                 controller: controllers.repositories,
+            }) */ .state({
+                name: 'usersSearch.result.data',
+                url: '/:tabName',
+                templateUrl: './views/tabData.html',
+                controller: controllers.tabData,
             });
     });

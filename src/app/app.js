@@ -2,16 +2,16 @@ import angular from 'angular';
 import '@uirouter/angularjs';
 import 'angular-ui-bootstrap';
 
-import './globalProviders';
-import './globalDirectives';
-import './sharedComponents';
+import './shared/applicationComponents';
+import './shared/providers';
+import './shared/reusableDirectives';
 import './pages';
 
 angular
     .module('testAngularApplication', [
-        'sharedAppComponents',
+        'applicationComponents',
         'globalVariables',
-        'globalCustomDirectives',
+        'reusableCustomDirectives',
         'ui.bootstrap',
         'pages',
         'ui.router',

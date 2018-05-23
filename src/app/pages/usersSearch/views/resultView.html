@@ -3,15 +3,32 @@
     <h3>username: {{userData.name}}</h3>
     <img ng-src="{{userData.avatar_url}}">
     <uib-tabset id="userDataTabs" type="pills" justified="true" active="activeTab" class="sticky">
-        <uib-tab heading="Followers" ui-sref=".followersList({'#': 'userDataTabs'})" class="{{$state.includes('usersSearch.result.followersList') ? 'active' : ''}}"
-            index="0">
+        <uib-tab heading="Followers" ui-sref=".data({tabName : 'followers', '#':'userDataTabs'})" class="{{$state.includes('usersSearch.result.data', {tabName : 'followers'}) ? 'active' : ''}}"
+            select="" index="0">
         </uib-tab>
-        <uib-tab heading="Following" ui-sref=".followingList({'#': 'userDataTabs'})" class="{{$state.includes('usersSearch.result.followingList') ? 'active' : ''}}"
+        <uib-tab heading="Following" ui-sref=".data({tabName : 'following', '#':'userDataTabs'})" class="{{$state.includes('usersSearch.result.data', {tabName : 'following'}) ? 'active' : ''}}"
             index="1">
         </uib-tab>
-        <uib-tab heading="Repositories" ui-sref=".repositoriesList({'#': 'userDataTabs'})" class="{{$state.includes('usersSearch.result.repositoriesList') ? 'active' : ''}}"
+        <uib-tab heading="Repositories" ui-sref=".data({tabName : 'repositories', '#':'userDataTabs'})" class="{{$state.includes('usersSearch.result.data', {tabName : 'repositories'})  ? 'active' : ''}}"
             index="2">
         </uib-tab>
     </uib-tabset>
-    <div ui-view autoscroll></div>
+    <section>
+        <header>
+            <div ng-show="activeTab === 0">
+                <h4>List of followers</h4>
+                <p class="important-info">Count: {{userData.followers}}</p>
+            </div>
+            <div ng-show="activeTab === 1">
+                <h4>Following list</h4>
+                <p class="important-info">Count: {{userData.following}}</p>
+            </div>
+            <div ng-show="activeTab === 2">
+                <h4>Repositories</h4>
+                <p class="important-info">Count: {{userData.public_repos}}</p>
+                <p class="important-info">Stars: {{userData.starredReposCount}}</p>
+            </div>
+        </header>
+        <div ui-view autoscroll></div>
+    </section>
 </div>

@@ -1,7 +1,10 @@
 /* @ngInject */
-const userData = ($stateParams, $scope, $state, userDataService) => {
-    $scope.activeTab = -1;
+const userData = ($stateParams, $scope, $state, $location, userDataService) => {
     $scope.$state = $state;
+    $scope.$stateParams = $stateParams;
+    $scope.$location = $location;
+
+    $scope.activeTab = -1;
 
     init();
 

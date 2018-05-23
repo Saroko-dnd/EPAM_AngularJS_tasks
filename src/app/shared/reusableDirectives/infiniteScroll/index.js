@@ -29,10 +29,13 @@ const infiniteScroll = $document => ({
             const documentScrollTop =
                 document.body.scrollTop || document.documentElement.scrollTop;
 
+            console.log('scroll event');
+
             if (
                 documentScrollHeight <
                 documentClientHeight + documentScrollTop + bottomDistance
             ) {
+                console.log('scroll function');
                 scope.$eval(attrs.sivInfiniteScrollCallback);
             }
         }

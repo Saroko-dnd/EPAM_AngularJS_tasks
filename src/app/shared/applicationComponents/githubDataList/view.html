@@ -1,0 +1,18 @@
+<article siv-infinite-scroll siv-infinite-scroll-callback="loadData()" siv-infinite-scroll-bottom-distance="1000" id="followersPaging"
+    class="user-info-container">
+    <table class="table-default center">
+        <tbody>
+            <tr ng-repeat="data in githubDataList" siv-repeat-end="anchorScroll()">
+                <td ng-show="data.login">
+                    <p class="text" ng-bind="::data.login"></p>
+                </td>
+                <td ng-show="data.avatar_url">
+                    <img ng-src="{{::data.avatar_url}}">
+                </td>
+                <td ng-show="data.html_url">
+                    <a ng-href="{{::data.html_url}}" target="_blank">{{::(data.name || 'Profile link')}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>
