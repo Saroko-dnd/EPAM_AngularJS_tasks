@@ -10,8 +10,14 @@ const userData = (
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
     $scope.$location = $location;
+    $scope.$stateParams = $stateParams;
 
-    $scope.activeTab = -1;
+    $scope.userDataTabsIndexes = userDataTabsIndexes;
+    $scope.setActiveTabIndex = setActiveTabIndex;
+
+    console.log('CURRENT STATE');
+    console.log($state.current);
+    console.log($stateParams.tabName);
 
     init();
 
@@ -26,6 +32,10 @@ const userData = (
             },
         );
 
+        setActiveTabIndex();
+    }
+
+    function setActiveTabIndex() {
         if (
             $state.includes('usersSearch.result.data', {
                 tabName: 'followers',
@@ -44,6 +54,8 @@ const userData = (
             })
         ) {
             $scope.activeTab = userDataTabsIndexes.repositories;
+        } else {
+            $scope.activeTab = -1;
         }
     }
 };
