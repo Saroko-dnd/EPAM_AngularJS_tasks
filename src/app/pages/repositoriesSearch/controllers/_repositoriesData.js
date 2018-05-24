@@ -8,6 +8,7 @@ const repositoriesData = (
     const repositoriesPerPage = 100;
     let currentRepositoriesPage = 1;
 
+    $scope.allDataIsLoaded = false;
     $scope.loadingInProgress = false;
     $scope.Date = Date;
     $scope.loadRepositories = loadRepositories;
@@ -19,7 +20,7 @@ const repositoriesData = (
     }
 
     function loadRepositories() {
-        if (!$scope.loadingInProgress) {
+        if (!$scope.loadingInProgress && !$scope.allDataIsLoaded) {
             $scope.loadingInProgress = true;
 
             repositoriesDataService
@@ -34,9 +35,12 @@ const repositoriesData = (
                     (newRepositoriesData) => {
                         if (!$scope.repositoriesData) {
                             $scope.repositoriesData = newRepositoriesData;
+                        } else if (!newRepositoriesData.items.length) {
+                            $scope.allDataIsLoaded = true;
                         } else {
                             $scope.repositoriesData.items.push(...newRepositoriesData.items);
                         }
+
                         $scope.errorMessage = '';
                         $scope.loadingInProgress = false;
 

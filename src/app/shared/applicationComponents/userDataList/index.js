@@ -1,5 +1,5 @@
 /* @ngInject */
-const githubDataList = () => ({
+const userDataList = () => ({
     restrict: 'E',
     replace: true,
     scope: {
@@ -11,6 +11,7 @@ const githubDataList = () => ({
         let firstDataLoading = true;
         let currentPage = 1;
 
+        $scope.allDataIsLoaded = false;
         $scope.loadingInProgress = false;
         $scope.anchorScroll = anchorScroll;
         $scope.githubDataList = [];
@@ -30,7 +31,7 @@ const githubDataList = () => ({
         }
 
         function loadData() {
-            if (!$scope.loadingInProgress) {
+            if (!$scope.loadingInProgress && !$scope.allDataIsLoaded) {
                 $scope.loadingInProgress = true;
                 $scope
                     .loadDataCallback(
@@ -39,8 +40,13 @@ const githubDataList = () => ({
                         itemsPerPage,
                     )
                     .then((data) => {
-                        $scope.githubDataList.push(...data);
-                        console.log($scope.githubDataList[0]);
+                        if (!data.length) {
+                            $scope.allDataIsLoaded = true;
+                        } else {
+                            $scope.githubDataList.push(...data);
+                            console.log($scope.githubDataList[0]);
+                        }
+
                         $scope.loadingInProgress = false;
                     });
 
@@ -51,4 +57,4 @@ const githubDataList = () => ({
     templateUrl: './view.html',
 });
 
-export default githubDataList;
+export default userDataList;

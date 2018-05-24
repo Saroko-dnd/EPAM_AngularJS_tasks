@@ -1,5 +1,12 @@
 /* @ngInject */
-const userData = ($stateParams, $scope, $state, $location, userDataService) => {
+const userData = (
+    $stateParams,
+    $scope,
+    $state,
+    $location,
+    userDataService,
+    userDataTabsIndexes,
+) => {
     $scope.$state = $state;
     $scope.$stateParams = $stateParams;
     $scope.$location = $location;
@@ -18,6 +25,26 @@ const userData = ($stateParams, $scope, $state, $location, userDataService) => {
                 $scope.userData = errorResponse.data;
             },
         );
+
+        if (
+            $state.includes('usersSearch.result.data', {
+                tabName: 'followers',
+            })
+        ) {
+            $scope.activeTab = userDataTabsIndexes.followers;
+        } else if (
+            $state.includes('usersSearch.result.data', {
+                tabName: 'following',
+            })
+        ) {
+            $scope.activeTab = userDataTabsIndexes.following;
+        } else if (
+            $state.includes('usersSearch.result.data', {
+                tabName: 'repositories',
+            })
+        ) {
+            $scope.activeTab = userDataTabsIndexes.repositories;
+        }
     }
 };
 
