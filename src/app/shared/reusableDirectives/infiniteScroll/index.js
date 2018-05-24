@@ -6,7 +6,7 @@ const infiniteScroll = $document => ({
     link(scope, element, attrs) {
         const breakTime = 250;
         const bottomDistance = scope.$eval(attrs.sivInfiniteScrollBottomDistance);
-        const smartScrollEventHandler = _.debounce(
+        const smartScrollEventHandler = _.throttle(
             scrollEventHandler,
             breakTime,
             {

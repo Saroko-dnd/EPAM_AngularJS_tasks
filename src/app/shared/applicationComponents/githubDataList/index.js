@@ -9,9 +9,9 @@ const githubDataList = () => ({
     controller: function MyTabsController($scope, $anchorScroll, $stateParams) {
         const itemsPerPage = 20;
         let firstDataLoading = true;
-        let loadingInProgress = false;
         let currentPage = 1;
 
+        $scope.loadingInProgress = false;
         $scope.anchorScroll = anchorScroll;
         $scope.githubDataList = [];
         $scope.loadData = loadData;
@@ -30,8 +30,8 @@ const githubDataList = () => ({
         }
 
         function loadData() {
-            if (!loadingInProgress) {
-                loadingInProgress = true;
+            if (!$scope.loadingInProgress) {
+                $scope.loadingInProgress = true;
                 $scope
                     .loadDataCallback(
                         $stateParams.login,
@@ -41,7 +41,7 @@ const githubDataList = () => ({
                     .then((data) => {
                         $scope.githubDataList.push(...data);
                         console.log($scope.githubDataList[0]);
-                        loadingInProgress = false;
+                        $scope.loadingInProgress = false;
                     });
 
                 currentPage += 1;
