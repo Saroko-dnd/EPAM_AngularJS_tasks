@@ -40,6 +40,7 @@
     }
 
     td {
+      overflow-x: auto;
       border: 0.5rem solid $color-table-body-borders;
       background-color: $color-repos-table-body-background;
     }

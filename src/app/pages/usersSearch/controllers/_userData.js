@@ -13,7 +13,7 @@ const userData = (
     $scope.$stateParams = $stateParams;
 
     $scope.userDataTabsIndexes = userDataTabsIndexes;
-    $scope.setActiveTabIndex = setActiveTabIndex;
+    $scope.activeTab = -1;
 
     init();
 
@@ -27,32 +27,6 @@ const userData = (
                 $scope.userData = errorResponse.data;
             },
         );
-
-        setActiveTabIndex();
-    }
-
-    function setActiveTabIndex() {
-        if (
-            $state.includes('usersSearch.result.data', {
-                tabName: 'followers',
-            })
-        ) {
-            $scope.activeTab = userDataTabsIndexes.followers;
-        } else if (
-            $state.includes('usersSearch.result.data', {
-                tabName: 'following',
-            })
-        ) {
-            $scope.activeTab = userDataTabsIndexes.following;
-        } else if (
-            $state.includes('usersSearch.result.data', {
-                tabName: 'repositories',
-            })
-        ) {
-            $scope.activeTab = userDataTabsIndexes.repositories;
-        } else {
-            $scope.activeTab = -1;
-        }
     }
 };
 
