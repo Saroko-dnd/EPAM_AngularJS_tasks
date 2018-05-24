@@ -15,10 +15,6 @@ const userData = (
     $scope.userDataTabsIndexes = userDataTabsIndexes;
     $scope.setActiveTabIndex = setActiveTabIndex;
 
-    console.log('CURRENT STATE');
-    console.log($state.current);
-    console.log($stateParams.tabName);
-
     init();
 
     function init() {

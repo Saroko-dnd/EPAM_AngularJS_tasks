@@ -20,10 +20,6 @@ const tabData = ($scope, $stateParams, userDataService) => {
             $scope.loadDataCallback = userDataService.loadUserFollowers.bind(userDataService);
         }
     }
-
-    console.log('TAB DATA init');
-    console.log();
-    console.log($stateParams.title);
 };
 
 export default tabData;

@@ -44,7 +44,6 @@ const userDataList = () => ({
                             $scope.allDataIsLoaded = true;
                         } else {
                             $scope.githubDataList.push(...data);
-                            console.log($scope.githubDataList[0]);
                         }
 
                         $scope.loadingInProgress = false;
