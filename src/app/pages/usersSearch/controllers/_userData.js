@@ -11,6 +11,7 @@ const userData = (
     $scope.$stateParams = $stateParams;
     $scope.$location = $location;
     $scope.$stateParams = $stateParams;
+    $scope.loadingInProgress = true;
 
     $scope.userDataTabsIndexes = userDataTabsIndexes;
     $scope.activeTab = -1;
@@ -22,9 +23,11 @@ const userData = (
             (newUserData) => {
                 $scope.userData = newUserData;
                 $scope.errorMessage = '';
+                $scope.loadingInProgress = false;
             },
             (errorResponse) => {
                 $scope.userData = errorResponse.data;
+                $scope.loadingInProgress = false;
             },
         );
     }

@@ -1,4 +1,5 @@
 <p ng-bind="userData.message" class="error-message"></p>
+<siv-loader ng-show="loadingInProgress"></siv-loader>
 <div ng-if="userData.login">
     <h3>username: {{userData.name}}</h3>
     <img ng-src="{{userData.avatar_url}}">
