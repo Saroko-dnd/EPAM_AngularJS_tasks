@@ -3,20 +3,41 @@ const userSearch = (
     $state,
     $rootScope,
     $scope,
+    $cookies,
+    $location,
+    $stateParams,
+    $transitions,
     userDataService,
+    userDataTabsIndexes,
     userDataCache,
     KeyCodes,
 ) => {
     $scope.getUserInfo = getUserInfo;
-    $scope.login = '';
+    $scope.login = $stateParams.login || '';
     $scope.KeyCodes = KeyCodes;
     $rootScope.$state = $state;
 
     init();
 
-    function init() {}
+    function init() {
+        setHooksForStateParams();
+    }
+
+    function setHooksForStateParams() {
+        const unregisterTransitionHook = $transitions.onSuccess(
+            {},
+            (transition) => {
+                $scope.login = transition.params().login;
+            },
+        );
+
+        $scope.$on('$destroy', () => {
+            unregisterTransitionHook();
+        });
+    }
 
     function getUserInfo() {
+        // $cookies.put($location.absUrl(), $scope.login);
         $state.go(
             'usersSearch.result',
             {

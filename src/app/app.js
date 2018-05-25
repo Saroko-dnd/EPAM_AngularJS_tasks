@@ -1,4 +1,6 @@
 import angular from 'angular';
+import 'angular-cookies';
+
 import '@uirouter/angularjs';
 import 'angular-ui-bootstrap';
 
@@ -9,6 +11,7 @@ import './pages';
 
 angular
     .module('testAngularApplication', [
+        'ngCookies',
         'applicationComponents',
         'globalVariables',
         'reusableCustomDirectives',
