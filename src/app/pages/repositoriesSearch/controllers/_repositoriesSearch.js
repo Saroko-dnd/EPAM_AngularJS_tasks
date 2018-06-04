@@ -13,8 +13,6 @@ const repositoriesSearch = (
     $scope.sortOptions = reposSortOptions;
     [$scope.selectedSortOption] = reposSortOptions;
 
-    console.log('repositoriesSearch INIT');
-
     init();
 
     function init() {
