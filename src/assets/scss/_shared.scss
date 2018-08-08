@@ -1,5 +1,7 @@
 html {
   font-size: 10px;
+  position: relative;
+  min-height: 100%;
 }
 
 * {
@@ -68,6 +70,12 @@ p {
   font-family: $font-usual-text;
   color: $color-paragraph;
   font-size: 2rem;
+}
+
+footer {
+  font-size: 5rem;
+  color: $color-footer;
+  padding: 0 0 1rem 0;
 }
 
 .text {

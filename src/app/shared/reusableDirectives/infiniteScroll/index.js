@@ -5,8 +5,8 @@ const infiniteScroll = $document => ({
     restrict: 'A',
     link(scope, element, attrs) {
         const breakTime = 250;
-        const bottomDistance = 1000;
-        const smartScrollEventHandler = _.debounce(
+        const bottomDistance = scope.$eval(attrs.sivInfiniteScrollBottomDistance);
+        const smartScrollEventHandler = _.throttle(
             scrollEventHandler,
             breakTime,
             {
@@ -16,11 +16,9 @@ const infiniteScroll = $document => ({
         );
 
         $document.on('scroll', smartScrollEventHandler);
-        // window.addEventListener('scroll', smartScrollEventHandler);
 
         element.on('$destroy', () => {
             $document.off('scroll', smartScrollEventHandler);
-            // window.removeEventListener('scroll', smartScrollEventHandler);
         });
 
         function scrollEventHandler() {
@@ -33,7 +31,7 @@ const infiniteScroll = $document => ({
                 documentScrollHeight <
                 documentClientHeight + documentScrollTop + bottomDistance
             ) {
-                scope.$eval(attrs.sivScrollDown);
+                scope.$eval(attrs.sivInfiniteScrollCallback);
             }
         }
     },

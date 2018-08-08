@@ -1,7 +1,20 @@
 /* @ngInject */
-const userData = ($stateParams, $scope, $state, userDataService) => {
-    $scope.activeTab = -1;
+const userData = (
+    $stateParams,
+    $scope,
+    $state,
+    $location,
+    userDataService,
+    userDataTabsIndexes,
+) => {
     $scope.$state = $state;
+    $scope.$stateParams = $stateParams;
+    $scope.$location = $location;
+    $scope.$stateParams = $stateParams;
+    $scope.loadingInProgress = true;
+
+    $scope.userDataTabsIndexes = userDataTabsIndexes;
+    $scope.activeTab = -1;
 
     init();
 
@@ -10,9 +23,11 @@ const userData = ($stateParams, $scope, $state, userDataService) => {
             (newUserData) => {
                 $scope.userData = newUserData;
                 $scope.errorMessage = '';
+                $scope.loadingInProgress = false;
             },
             (errorResponse) => {
                 $scope.userData = errorResponse.data;
+                $scope.loadingInProgress = false;
             },
         );
     }

@@ -1,10 +1,13 @@
+@import "variables";
+@import "~font-awesome/scss/font-awesome.scss";
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "reset";
 @import "mixins";
-@import "variables";
 @import "fonts";
 @import "shared";
 
 @import "./classes/index.scss";
 @import "./customBootstrap/index.scss";
 @import "./animations/index.scss";
+@import "./reusable/index.scss";
+@import "./directives/index.scss";

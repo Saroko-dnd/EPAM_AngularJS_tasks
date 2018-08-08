@@ -2,28 +2,36 @@
 <div ng-if="repositoriesData">
     <h4>list of found repositories</h4>
     <p class="important-info">Count: {{repositoriesData.total_count}}</p>
-    <table class="table-repos center">
+    <table siv-infinite-scroll siv-infinite-scroll-callback="loadRepositories()" siv-infinite-scroll-bottom-distance="2000" class="table-repos center">
         <tbody>
             <tr>
-                <th>Name</th>
-                <th class="description">Description</th>
-                <th>Language</th>
-                <th>Stars</th>
+                <th class="medium-data sticky">Name (link)</th>
+                <th class="big-data sticky">Description</th>
+                <th class="medium-data sticky">Language</th>
+                <th class="small-data sticky">Stars</th>
+                <th class="small-data sticky">Forks</th>
             </tr>
             <tr ng-repeat="repository in repositoriesData.items">
-                <td>
-                    <p class="text" ng-bind="::repository.name"></p>
+                <td class="medium-data">
+                    <a ng-href="{{::repository.html_url}}" target="_blank">{{::repository.name}}</a>
+                    <p class="text">Last update: {{::Date.parse(repository.updated_at) | date:'MMM d, y h:mm:ss a'}}</p>
                 </td>
-                <td class="description">
+                <td class="big-data">
                     <p class="text" ng-bind="::repository.description"></p>
                 </td>
-                <td>
+                <td class="medium-data">
                     <p class="text" ng-bind="::repository.language"></p>
                 </td>
-                <td>
+                <td class="small-data">
+                    <i class="fa fa-star"></i>
                     <p class="text" ng-bind="::repository.stargazers_count"></p>
+                </td>
+                <td class="small-data">
+                    <i class="fa fa-code-fork"></i>
+                    <p class="text" ng-bind="::repository.forks"></p>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+<siv-loading-indicator ng-show="loadingInProgress && !allDataIsLoaded"></siv-loading-indicator>

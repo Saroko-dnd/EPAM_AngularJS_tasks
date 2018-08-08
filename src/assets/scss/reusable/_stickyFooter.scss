@@ -1,0 +1,17 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1 0 auto;
+}

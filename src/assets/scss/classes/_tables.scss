@@ -40,18 +40,26 @@
     }
 
     td {
+      overflow-x: auto;
       border: 0.5rem solid $color-table-body-borders;
       background-color: $color-repos-table-body-background;
     }
 
     td,
     th {
-      &.description {
-        width: 50rem;
+      &.big-data {
+        min-width: 50rem;
+        max-width: 50rem;
       }
 
-      &:not(.description) {
-        width: 12rem;
+      &.medium-data {
+        min-width: 28rem;
+        max-width: 28rem;
+      }
+
+      &.small-data {
+        min-width: 12rem;
+        max-width: 12rem;
       }
 
       * {

@@ -16,6 +16,10 @@ class userDataService {
         return 30;
     }
 
+    static isSinglePage(response) {
+        return !response.headers('link');
+    }
+
     loadUserData(login) {
         const userData = this.userDataCache.getUserData(login);
 
@@ -105,7 +109,7 @@ class userDataService {
 
         return this.$http.get(`${this.usersLink + login}/starred`).then(
             (response) => {
-                if (response.headers('link')) {
+                if (!userDataService.isSinglePage(response)) {
                     [lastPage] = response
                         .headers('link')
                         .match(userDataService.regexpLastPage)
