@@ -4,9 +4,13 @@
     "description": "First training task in AngularJS",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "webpack --mode development ./src/index.js --output ./dist/main.js",
-        "build": "webpack --mode production ./src/index.js --output ./dist/main.js",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "dev":
+            "webpack --mode development ./src/index.js --output ./dist/main.js",
+        "build":
+            "webpack --mode production ./src/index.js --output ./dist/main.js",
         "watch": "webpack --watch",
         "start": "webpack-dev-server --open Chrome --mode development",
         "startOpt": "webpack-dev-server --open Chrome --mode production"
@@ -14,10 +18,28 @@
     "keywords": [],
     "author": "Ihar Saroka (Junior Software Engineer in EPAM)",
     "license": "ISC",
+    "jest": {
+        "verbose": true,
+        "testURL": "http://localhost/",
+        "collectCoverageFrom": ["src/**/*.{js}"],
+        "moduleNameMapper": {
+            "^.+\\.(css|scss)$": "identity-obj-proxy",
+            "\\.(svg)$": "<rootDir>/src/app/tests/mocks/fileMock.js"
+        },
+        "transform": {
+            "^.+\\.js$": "babel-jest"
+        },
+        "globals": {
+            "__DEV__": true,
+            "__RCTProfileIsProfiling": false
+        }
+    },
     "devDependencies": {
+        "angular-mocks": "^1.7.3",
         "angular1-templateurl-loader": "^1.0.0",
         "babel-core": "^6.26.0",
         "babel-eslint": "^8.2.3",
+        "babel-jest": "^23.4.2",
         "babel-loader": "^7.1.4",
         "babel-plugin-angularjs-annotate": "^0.8.2",
         "babel-preset-env": "^1.6.1",
@@ -30,6 +52,7 @@
         "file-loader": "^1.1.11",
         "html-loader": "^0.5.5",
         "html-webpack-plugin": "^3.2.0",
+        "jest": "^23.4.2",
         "mini-css-extract-plugin": "^0.4.0",
         "node-sass": "^4.8.3",
         "optimize-css-assets-webpack-plugin": "^4.0.0",
